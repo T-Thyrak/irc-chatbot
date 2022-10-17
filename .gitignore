@@ -1,0 +1,12 @@
+misc/chatbot/**
+misc/yesno/**
+misc/comfile
+misc/lockables.dill
+
+models/
+models_backup/
+
+**/__pycache__/**
+venv/
+
+.env

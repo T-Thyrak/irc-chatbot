@@ -1,0 +1,155 @@
+{
+    "intents": [
+        {
+            "tag": "greeting",
+            "patterns": [
+                "Hi there",
+                "How are you",
+                "Hello",
+                "Hi",
+                "Good day",
+                "Is anyone there?"
+            ],
+            "responses": [
+                "Hello there, thanks for asking. How can I help you?",
+                "Hi there, how can I help you?"
+            ]
+        },
+        {
+            "tag": "whoami",
+            "patterns": [
+                "Who are you",
+                "What is your name",
+                "What should I call you",
+                "What do you go by"
+            ],
+            "responses": [
+                "I am a chatbot to provide you informations about the school. Please ask me any questions you have about the school."
+            ]
+        },
+        {
+            "tag": "thanks",
+            "patterns": [
+                "Thanks",
+                "Thank you",
+                "That's helpful",
+                "Thanks for the help"
+            ],
+            "responses": [
+                "Happy to help!",
+                "Any time!",
+                "My pleasure."
+            ]
+        },
+        {
+            "tag": "noanswer",
+            "patterns": [""],
+            "responses": [
+                "I'm sorry, I don't understand. Please ask me another question.",
+                "I'm not sure I understood that. Please ask me another question."
+            ]
+        },
+        {
+            "tag": "options",
+            "patterns": [
+                "What are your options",
+                "What can I do",
+                "What can you do",
+                "What are you capable of",
+                "How can you help me",
+                "What can you provide"
+            ],
+            "responses": [
+                "I can provide you with the basic informations about the school, and provide you a recommendation for a course if you don't know what to apply for."
+            ]
+        },
+        {
+            "tag": "basic_info",
+            "patterns": [
+                "What is this school",
+                "Can you tell me about the school",
+                "How does the school look like",
+                "What is the school like",
+                "Can you provide the basic information about the school"
+            ],
+            "responses": [
+                "Out school name is CADT, standing for \"Cambodia Academy of Digital Technology\". We formerly went by the name NIPTICT.\n\nCADT aims to be the flagship research and education institution for Digital Technology and Innovation.\n\nWe provide three bachelor programs for you to choose from, and they are:\n- Bachelor of E-Commerce\n- Bachelor of Telecoms and Networking\n- Bachelor of Computer Science\n"
+            ]
+        },
+        {
+            "tag": "contact_info",
+            "patterns": [
+                "How can I contact the school",
+                "I would like to contact the school",
+                "I would like to get in touch with the school",
+                "I want to get more information about the school",
+                "I want to know more about the school"
+            ],
+            "responses": [
+                "For more complete information about our school, please visit our website at https://cadt.edu.kh/. \n\nIf you have any questions, please contact us at idt@cadt.edu.kh, or call us at +855 10 340 000."
+            ]
+        },
+        {
+            "tag": "course_recommendation",
+            "patterns": [
+                "Recommend me a course",
+                "I don't know what to apply for",
+                "I don't know what to choose",
+                "I don't know what to study",
+                "What should I apply for",
+                "What course should I take",
+                "Can you recommend me a course"
+            ],
+            "responses": [
+                "Please answer the following questions so that I know what you are interested in. Are you sure to continue?"
+            ],
+            "context_set": "course_recommendation",
+            "context_drop": "course_recommendation"
+        },
+        {
+            "tag": "fun_fact",
+            "patterns": [
+                "Tell me a fun fact",
+                "Tell me something interesting about the school",
+                "Tell me a fact about the school",
+                "Can you tell me a fact about the school",
+                "Can you tell me something interesting about the school",
+                "Can you tell me something cool about the school"
+            ],
+            "responses": [
+                "Some facts"
+            ]
+        },
+        {
+            "tag": "request_human",
+            "patterns": [
+                "I request a human",
+                "I request a real person",
+                "I want to talk to a human",
+                "I want to talk to a real person",
+                "I want to talk to a real human",
+                "Get me a real person",
+                "Get me a real human",
+                "I would like to talk to a real person",
+                "I would like to talk to a real human",
+                "Can I talk to a real person",
+                "Can I talk to a real human",
+                "Can I talk to a human",
+                "Can I talk to a person",
+                "I want to talk to a person"
+            ],
+            "responses": [
+                "I see, I will transfer you to a human. Please wait for a moment, while I connect you to a human.\n\nIf there is no one available, consider contacting the school directly.\n\nAre you sure to continue?"
+            ],
+            "context_set": "request_human"
+        }
+    ],
+    "default_intent": {
+        "tag": "noanswer",
+        "patterns": [""],
+        "responses": [
+            "I'm sorry, I don't understand. Please ask me another question.",
+            "I'm not sure I understood that. Please ask me another question."
+        ]
+    }
+}
