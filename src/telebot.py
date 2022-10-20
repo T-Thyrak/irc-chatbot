@@ -145,7 +145,7 @@ def terminate():
 
 def run():
     while dont_die:
-        print('Waiting for command...')
+        # print('Waiting for command...')
         # requests.get(f"http://localhost:{os.getenv('PORT', 8080)}/api/v2/acknowledge")
         try:
             # requests.post(f'http://localhost:{os.getenv("PORT", 8080)}/api/v2/acknowledge', json={ "empty": shared_queue.empty() })

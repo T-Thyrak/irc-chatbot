@@ -8,6 +8,7 @@ from flask_cors import CORS
 from keras.models import Model, load_model
 from dotenv import load_dotenv
 from multiprocessing import Queue
+from src.prompt_group import PromptGroup
 
 from src.helper import context_handlers, generate_name, generate_token, handle_message, xor, QueueSender, QueueFiller
 from src.service import call_sender_API
@@ -171,7 +172,18 @@ def chat():
 @app.route('/')
 def homepage():
     url = url_for('chat')
-    return render_template('index.html', url=url)
+    groups = [
+        PromptGroup('Greetings', 'Greetings', [
+            "Hello",
+            "Hi there",
+            "How are you doing",
+        ]),
+        PromptGroup('What can you do', 'What can do', [
+            "What can you do",
+            "What are your functions",
+        ]),
+    ]
+    return render_template('index.html', url=url, groups=groups)
 
 @app.route('/api/v2/lock', methods=['POST'])
 def lock():

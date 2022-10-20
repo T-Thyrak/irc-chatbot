@@ -8,6 +8,7 @@
   - [Step 2. Create a python virtual environment](#step-2-create-a-python-virtual-environment)
   - [Step 3. Activate the virtual environment](#step-3-activate-the-virtual-environment)
   - [Step 4. Install the dependencies](#step-4-install-the-dependencies)
+  - [Step 5. Build the model](#step-5-build-the-model)
 - [How to Run](#how-to-run)
 - [License](#license)
 - [Other Notes](#other-notes)
@@ -49,6 +50,11 @@ venv\Scripts\activate # this line for Windows
 pip install -r requirements.txt
 ```
 
+## Step 5. Build the model
+```bash
+python -m src.build_main # to build the main model
+python -m src.build_yesno # to build the yes/no classifier
+```
 That's it, you are ready to run it!
 
 # How to Run

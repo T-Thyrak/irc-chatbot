@@ -8,11 +8,23 @@
                 "Hello",
                 "Hi",
                 "Good day",
-                "Is anyone there?"
+                "Is anyone there?",
+                "Hey",
+                "What's up",
+                "Wassup",
+                "Yo",
+                "Hey there",
+                "Greetings",
+                "Good to see you",
+                "Nice to meet you",
+                "Good to meet you",
+                "Sup"
             ],
             "responses": [
-                "Hello there, thanks for asking. How can I help you?",
-                "Hi there, how can I help you?"
+                "Hello there, thanks for asking. Please type 'What can you do?' for things that I can do.",
+                "Hi there, Please type 'What can you do?' for things that I can do.",
+                "Hello, Please type 'What can you do?' for things that I can do.",
+                "Greetings, Please type 'What can you do?' for things that I can do."
             ]
         },
         {
@@ -21,7 +33,12 @@
                 "Who are you",
                 "What is your name",
                 "What should I call you",
-                "What do you go by"
+                "What do you go by",
+                "What are you called",
+                "How should I address you",
+                "What's your name",
+                "who am i",
+                "whoami"
             ],
             "responses": [
                 "I am a chatbot to provide you informations about the school. Please ask me any questions you have about the school."
@@ -33,7 +50,12 @@
                 "Thanks",
                 "Thank you",
                 "That's helpful",
-                "Thanks for the help"
+                "Thanks for the help",
+                "Thank you for the help",
+                "Thanks so much",
+                "Thank you so much",
+                "Thanks for the information",
+                "Thank you for the information"
             ],
             "responses": [
                 "Happy to help!",
@@ -57,7 +79,21 @@
                 "What can you do",
                 "What are you capable of",
                 "How can you help me",
-                "What can you provide"
+                "What can you provide",
+                "What can you offer",
+                "What are your services",
+                "What are your features",
+                "What are your functions",
+                "What are your capabilities",
+                "What are your specialties",
+                "What are your specialities",
+                "What are your skills",
+                "options",
+                "can do",
+                "can you do",
+                "can you provide",
+                "can you offer",
+                "can you help me"
             ],
             "responses": [
                 "I can provide you with the basic informations about the school, and provide you a recommendation for a course if you don't know what to apply for."
@@ -70,7 +106,11 @@
                 "Can you tell me about the school",
                 "How does the school look like",
                 "What is the school like",
-                "Can you provide the basic information about the school"
+                "Can you provide the basic information about the school",
+                "basic info",
+                "information",
+                "basic information",
+                "tell information"
             ],
             "responses": [
                 "Out school name is CADT, standing for \"Cambodia Academy of Digital Technology\". We formerly went by the name NIPTICT.\n\nCADT aims to be the flagship research and education institution for Digital Technology and Innovation.\n\nWe provide three bachelor programs for you to choose from, and they are:\n- Bachelor of E-Commerce\n- Bachelor of Telecoms and Networking\n- Bachelor of Computer Science\n"
@@ -83,7 +123,14 @@
                 "I would like to contact the school",
                 "I would like to get in touch with the school",
                 "I want to get more information about the school",
-                "I want to know more about the school"
+                "I want to know more about the school",
+                "I would like to know more about the school",
+                "know more school",
+                "know more",
+                "more information",
+                "contact",
+                "contact school",
+                "contact information"
             ],
             "responses": [
                 "For more complete information about our school, please visit our website at https://cadt.edu.kh/. \n\nIf you have any questions, please contact us at idt@cadt.edu.kh, or call us at +855 10 340 000."
@@ -98,7 +145,18 @@
                 "I don't know what to study",
                 "What should I apply for",
                 "What course should I take",
-                "Can you recommend me a course"
+                "Can you recommend me a course",
+                "Can you recommend me a program",
+                "recommend",
+                "recommend course",
+                "recommend program",
+                "recommend me",
+                "recommend me a course",
+                "recommend me a program",
+                "recommendation",
+                "recommendation course",
+                "recommendation program",
+                "recommendation me"
             ],
             "responses": [
                 "Please answer the following questions so that I know what you are interested in. Are you sure to continue?"
@@ -117,7 +175,7 @@
                 "Can you tell me something cool about the school"
             ],
             "responses": [
-                "Some facts"
+                "WIP: Some facts"
             ]
         },
         {
@@ -136,12 +194,24 @@
                 "Can I talk to a real human",
                 "Can I talk to a human",
                 "Can I talk to a person",
-                "I want to talk to a person"
+                "I want to talk to a person",
+                "I want to talk to a human",
+                "talk to a human",
+                "talk to a person",
+                "talk to a real person",
+                "talk to a real human",
+                "human",
+                "human agent",
+                "real person",
+                "real human",
+                "person",
+                "agent"
             ],
             "responses": [
-                "I see, I will transfer you to a human. Please wait for a moment, while I connect you to a human.\n\nIf there is no one available, consider contacting the school directly.\n\nAre you sure to continue?"
+                "I see, I will transfer you to a human. You can still talk to me in the meanwhile :)\n\nIf there is no one available, consider contacting the school directly.\n\nAre you sure to continue?"
             ],
-            "context_set": "request_human"
+            "context_set": "request_human",
+            "context_drop": "request_human"
         }
     ],
     "default_intent": {

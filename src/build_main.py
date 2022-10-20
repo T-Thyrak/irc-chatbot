@@ -1,6 +1,9 @@
-from helper import stemmer, nltk
+from src.helper import stemmer
 
+
+import nltk
 import numpy as np
+
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras.optimizers import SGD
@@ -80,7 +83,7 @@ def main():
     
     model.save(save_path, overwrite=True)
     
-    plot_model(model, to_file='model.png', show_shapes=True, show_dtype=True)
+    plot_model(model, to_file='model.png', show_shapes=True, show_dtype=True) # remove this line if you don't want to generate the model image
     return (words, classes)
 
 if __name__ == "__main__":

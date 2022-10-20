@@ -30,6 +30,19 @@
                 <span id="botResponse"></span>
             </p>
         </div>
+
+        <!-- button groups for test suggestions -->
+
+        {% for group in groups %}
+            <label for="" class="form-label">{{group.name}}: </label>
+            <div class="btn-group mb-2 mt-2" role="group" aria-label="{{group.label}}">
+                {% for prompt in group.prompts %}
+                    <button type="button" class="btn btn-secondary" onclick="testSuggestion('{{prompt}}')">{{prompt}}</button>
+                {% endfor %}
+            </div>
+            <br />
+        {% endfor %}
+        
     </div>
 
     <script>
@@ -58,6 +71,11 @@
                     }
                 } 
             };
+        }
+
+        function testSuggestion(message) {
+            document.getElementById("inputMessage").value = message;
+            submitMessage();
         }
     </script>
 </body>
