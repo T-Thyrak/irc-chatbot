@@ -2,9 +2,11 @@ from src.wrappers import UserIterations
 
 import pickle
 import os
+import requests
 
 from keras.models import load_model
 from src.classify import classify
+from src.tasks import notifyTelegram
 
 with open('misc/yesno/words.pkl', 'rb') as f:
     words = pickle.load(f)
@@ -37,8 +39,13 @@ def handle_request_human(sender_psid: str, sentence: str, access_token: str) -> 
         result = classify(yesno_model, sentence=sentence, words=words, classes=classes, threshold=0.5)
         UserIterations.rem(sender_psid)
         if result == [] or result[0][0] == 'answer.maybe' or result[0][0] == 'answer.no':
-            return "I'm happy you still would like to talk to me :)", True
+            return "I see, I will respect your choice. :)", True
         else:
-            return "Alright, I will connect you to a human agent. You can still talk to me in the meanwhile :)", True
+            r = requests.get(f"https://graph.facebook.com/v2.6/{sender_psid}?access_token={access_token}")
+            data = r.json()
+            print(data)
+            notifyTelegram(f"L3ID{sender_psid}MSG\nA person named {data['first_name']} {data['last_name']} with the ID {sender_psid} has requested for a human to contact them on Messenger.\n\nPlease respond back to them ASAP.")
+            return "Alright, I will connect you to a human agent. You can still talk to me in the meanwhile. :)", True
+
         
     return "", True

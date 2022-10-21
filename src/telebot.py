@@ -52,11 +52,12 @@ def lock(update: Update, context: CallbackContext) -> None:
         return
     
     if len(context.args) != 1:
-        send_message('Usage: /lock <password>')
+        send_message('Usage: /lock <sender_psid>')
         return
     
     if lockables.get(context.args[0]) is None:
         send_message(f'Error: `{context.args[0]}` has never requested a human, so it cannot be locked.')
+        return
     
     PORT = os.getenv('PORT', 8080)
     url = f"http://localhost:{PORT}/api/v2/lock"
@@ -77,11 +78,12 @@ def unlock(update: Update, context: CallbackContext) -> None:
         return
     
     if len(context.args) != 1:
-        send_message('Usage: /unlock <password>')
+        send_message('Usage: /unlock <sender_psid>')
         return
     
     if lockables.get(context.args[0]) is None:
         send_message(f'Error: `{context.args[0]}` has never requested a human, so it cannot be unlocked.')
+        return
     
     PORT = os.getenv('PORT', 8080)
     url = f"http://localhost:{PORT}/api/v2/unlock"

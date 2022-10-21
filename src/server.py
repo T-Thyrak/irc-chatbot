@@ -35,8 +35,8 @@ with open('misc/intents.json') as f:
     intents = json.load(f)
     
 
-contexts = ExpiringDict(max_len=int(os.getenv('MAX_LEN', 500)), max_age_seconds=30 * 60)
-locks = {}
+contexts = ExpiringDict(max_len=int(os.getenv('MAX_LEN', 500)), max_age_seconds=30 * 60, callback=lambda key, _: UserIterations.rem(key))
+locks = ExpiringDict(max_len=int(os.getenv('MAX_LEN', 500)), max_age_seconds=60 * 60, callback=lambda key, _: notifyTelegram(f'L1ID{key}MSG\nLock on `{key}` has expired.'))
 
 open('misc/comfile', 'w').close()
 comfile_lock_path = 'misc/comfile.lock'
@@ -71,51 +71,55 @@ def chat_v2_get():
 def chat_v2_post():
     body = request.get_json()
     if body['object'] == 'page':
-        for entry in body['entry']:
-            event = entry['messaging'][0]
-            sender_psid = event['sender']['id']
-            
-            print(f"Received message from {sender_psid}")
-            if event.get('message'):
-                message = handle_message(sender_psid, event['message'])
-                response = {}
+        try:
+            for entry in body['entry']:
+                event = entry['messaging'][0]
+                sender_psid = event['sender']['id']
                 
-                if contexts.get(sender_psid) is None:
-                    results = classify(model, message, words, classes)
+                if locks.get(sender_psid):
+                    continue
+                
+                print(f"Received message from {sender_psid}")
+                if event.get('message'):
+                    message = handle_message(sender_psid, event['message'])
+                    response = {}
                     
-                    if results == []:
-                        response['text'] = random.choice(intents['default_intent']['responses'])
-                    else:
-                        for intent in intents['intents']:
-                            if intent['tag'] == results[0][0]:
-                                if 'context_filter' in intent:
-                                    if contexts.get(sender_psid) == intent['context_filter']:
+                    if contexts.get(sender_psid) is None:
+                        results = classify(model, message, words, classes)
+                        
+                        if results == []:
+                            response['text'] = random.choice(intents['default_intent']['responses'])
+                        else:
+                            for intent in intents['intents']:
+                                if intent['tag'] == results[0][0]:
+                                    if 'context_filter' in intent:
+                                        if contexts.get(sender_psid) == intent['context_filter']:
+                                            response['text'] = random.choice(intent['responses'])
+                                            if 'context_set' in intent:
+                                                contexts[sender_psid] = intent['context_set']
+                                    else:
                                         response['text'] = random.choice(intent['responses'])
                                         if 'context_set' in intent:
                                             contexts[sender_psid] = intent['context_set']
-                                else:
-                                    response['text'] = random.choice(intent['responses'])
-                                    if 'context_set' in intent:
-                                        contexts[sender_psid] = intent['context_set']
-                                
-                                break
-                else:
-                    if locks.get(sender_psid):
-                        continue
-                    elif contexts.get(sender_psid) == 'request_human' and UserIterations.get(sender_psid) is not None:
-                        continue
+                                    
+                                    break
                     else:
-                        context = contexts[sender_psid]
-                        handler = context_handlers[context]
+                        if contexts.get(sender_psid) == 'request_human' and UserIterations.get(sender_psid) is not None:
+                            continue
+                        else:
+                            context = contexts[sender_psid]
+                            handler = context_handlers[context]
+                            
+                            response['text'], context_should_drop = handler(sender_psid, message, os.getenv('PAGE_ACCESS_TOKEN'))
+                            
+                            if context_should_drop:
+                                contexts.pop(sender_psid)
                         
-                        response['text'], context_should_drop = handler(sender_psid, message, os.getenv('PAGE_ACCESS_TOKEN'))
-                        
-                        if context_should_drop:
-                            contexts.pop(sender_psid)
-                    
-                call_sender_API(sender_psid, response, os.getenv('PAGE_ACCESS_TOKEN'))
-                                
-        return "EVENT_RECEIVED", 200
+                    call_sender_API(sender_psid, response, os.getenv('PAGE_ACCESS_TOKEN'))
+        except Exception as e:
+            e.printStackTrace()
+        finally: 
+            return "EVENT_RECEIVED", 200
     return "404 Not Found", 404
 
 
@@ -222,7 +226,7 @@ def test():
     # print(telegram_process_handle)
     # telegram_process_handle.poll()
     # filler.fill('L2ID1337MSG\nThe person `name` with ID `1337` has requested a human interaction!\n\nPlease respond to the user ASAP.')
-    notifyTelegram('L2ID1337MSG\nThe person `name` with ID `1337` has requested a human interaction!\n\nPlease respond to the user ASAP.')
+    notifyTelegram('L3ID1337MSG\nThe person `name` with ID `1337` has requested a human interaction!\n\nPlease respond to the user ASAP.')
     
     # return jsonify({"message": telegram_process_handle.__str__()}), 200
     return jsonify({"message": "OK"}), 200
