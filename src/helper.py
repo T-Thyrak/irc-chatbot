@@ -1,7 +1,8 @@
+from hashlib import sha512
 from multiprocessing import Queue
 import secrets
 import string
-from time import sleep
+from time import sleep, time
 # from filelock import FileLock
 import expiringdict
 
@@ -72,12 +73,30 @@ class QueueSender:
     def terminate(self):
         self.terminate = True
         
-
-def generate_token(ttl: TTLDurations):
-    if ttl == TTLDurations.MINUTE:
-        token = secrets.token_hex(32)
-        token_storage_minute[token] = True
-        return token
+        
+def safe_compare(a: str, b: str, timeout: float = 1.5):
+    start_time = time()
+    has_failed = False
     
-def generate_name():
-    return secrets.choice(alpha_only) + ''.join(secrets.choice(alphanumerics) for _ in range(15))
+    if len(a) != len(b):
+        has_failed = True
+        
+    for i in range(len(a)):
+        if a[i] != b[i]:
+            has_failed = True
+            
+    while time() - start_time < timeout:
+        pass
+    
+    return not has_failed
+    
+
+def verify_hash(hash: str, token: str):
+    return safe_compare(hash, sha512(xor(token, os.getenv('SECRET_KEY')).encode('utf-8')).hexdigest())
+
+
+def shutdown_server():
+    # generate a Ctrl+C event
+    from win32.win32api import GenerateConsoleCtrlEvent
+    
+    GenerateConsoleCtrlEvent(0, 0)

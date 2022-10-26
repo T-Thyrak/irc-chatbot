@@ -113,7 +113,7 @@
                 "tell information"
             ],
             "responses": [
-                "Out school name is CADT, standing for \"Cambodia Academy of Digital Technology\". We formerly went by the name NIPTICT.\n\nCADT aims to be the flagship research and education institution for Digital Technology and Innovation.\n\nWe provide three bachelor programs for you to choose from, and they are:\n- Bachelor of E-Commerce\n- Bachelor of Telecoms and Networking\n- Bachelor of Computer Science\n"
+                "Our school name is CADT, standing for \"Cambodia Academy of Digital Technology\". We formerly went by the name NIPTICT.\nCADT aims to be the flagship research and education institution for Digital Technology and Innovation.\n\nWe provide three bachlor programs in our Institute of Digital Technology:\n    - Bachelor of Computer Science\n    - Bachelor of Telecoms and Networking\n    - Bachelor of E-commerce\n\nYou can request to expand more on any of these subjects by typing \"expand <subject>\".\n\n- Mission and Vision\n- Board of Trustees\n- Institute of Digital Technology\n- Institute of Digital Governance\n- Institute of Digital Research & Innovation\n\nAlternatively, you can visit our website at https://cadt.edu.kh/ for more information."
             ]
         },
         {
@@ -212,6 +212,96 @@
             ],
             "context_set": "request_human",
             "context_drop": "request_human"
+        },
+        {
+            "tag": "expand_mission_vision",
+            "patterns": [
+                "Expand mission and vision",
+                "Expand mission",
+                "Expand vision",
+                "Expand mission and vision of the school",
+                "Expand mission of the school",
+                "Expand vision of the school",
+                "Expand mission and vision of the school",
+                "Expand mission of the school",
+                "Can you expand mission and vision",
+                "Can you expand mission",
+                "Can you expand vision",
+                "Can you expand mission and vision of the school",
+                "Can you expand more on mission and vision",
+                "Can you expand more on mission",
+                "Can you expand more on vision",
+                "Can you expand more on mission and vision of the school"
+            ],
+            "responses": [
+                "Our mission is to provide education, training, R&D and promote innovation on digital technology to students, civil servants, and innovators to contribute to the development of digital government, economy and society.\n\nOur vision is to be the flagship public education and research institute institution, developing excellent digital talent and innovators, driving Cambodia towards a digital society."
+            ]
+        },
+        {
+            "tag": "expand_board_of_trustees",
+            "patterns": [
+                "Expand board of trustees",
+                "Expand board",
+                "Expand board of trustees of the school",
+                "Expand board of the school",
+                "Can you expand board of trustees",
+                "Can you expand board",
+                "Can you expand board of trustees of the school",
+                "Can you expand board of the school",
+                "Can you expand more on board of trustees",
+                "Can you expand more on board",
+                "Can you expand more on board of trustees of the school",
+                "Can you expand more on board of the school"
+            ],
+            "responses": [
+                "The board of trustees of CADT includes the following members:\n    - H.E. Dr. KHOV Makara, Chairman, and Secretary of State of the Ministry of Post and Telecommunications\n    - H.E. Prof. CHHEM Kieth Rethy, Member, and Minister Delegate Attached to the Prime Minister\n    - H.E. Dr. YOUK Ngoy, Member, and Secretary of State of the Ministry of Education, Youth and Sport\n    - H.E. Dr. CHHEANG Vannarith, Member, and Director General and Dictorate General of Policy, Ministry of Economy and Finance,\n    - Mr. CHAB Dina, Member, and Deputy Director General of the General Affairs, Ministry of Civil Service\n    - H.E. Dr. SENG Sopheap, Member, and President of Cambodia Academy of Digital Technology\n    - H.E. Dr. SAM Sethserey, Director General of Institute of Digital Research and Innovation\n"
+            ]
+        },
+        {
+            "tag": "expand_idt",
+            "patterns": [
+                "Expand on IDT",
+                "Expand IDT",
+                "Expand Institute of Digital Technology",
+                "Can you expand on the Institute of Digital Technology",
+                "Can you expand on IDT",
+                "Can you expand more on the Institute of Digital Technology",
+                "Can you expand more on IDT"
+            ],
+            "responses": [
+                "The Institute of Digital Technology (IDT) is a public higher education institution specialized in digital technology, providing excellent training programs to foster digital talents indespensible for the development of the digital economy and society.\n\nIDT provides three bachelor degree programs, and they are:\n    - Bachelor of Computer Science\n    - Bachelor of E-Commerce\n    - Bachelor of Telecoms and Networking\n\nThe Bachelor of Computer Science is the study of computers and computational systems, we focus mostly on software systems, including computer theory, design, development, and application.\n\nThe Bachelor of E-Commerce is an undergraduate program, specifically designed to prepare students for the contemporary workforce and a global career, especially for the emerging market. The program aims to equip students with effective digital knowledge and a strong commercial grounding in business by combining theory and practice to build their understanding of business operation alongside technology development.\n\nThe Bachelor of Telecoms and Networking is designed to provide students with a firmly-grounded, practical, and multidisciplinary training with effective learning resources. Students will get well training and targeting to qualify in various international certifications such as Cisco Certified Network Associate (CCNA), CCDA, Network Security, and CCNA Service Provider.\n\nMore information about each of the programs can be found at:\n- https://idt.edu.kh/bachelor-of-computer-science/ for Computer Science\n- https://idt.edu.kh/bachelor-of-e-commerce/ for E-Commerce\n- https://idt.edu.kh/bachelor-of-telecoms-and-networking/ for Telecoms and Networking\n"
+            ]
+        },
+        {
+            "tag": "expand_idri",
+            "patterns": [
+                "Expand on IDRI",
+                "Expand IDRI",
+                "Expand Institute of Digital Research and Innovation",
+                "Can you expand on the Institute of Digital Research and Innovation",
+                "Can you expand on IDRI",
+                "Can you expand more on the Institute of Digital Research and Innovation",
+                "Can you expand more on IDRI"
+            ],
+            "responses": [
+                "The Institute of Digital Research and Innovation (IDRI) is a public research institution under the Cambodia Academy of Digital Technology in charge of research and development in digital technology and digital innovation and entrepreneurship promotion.\n\nOur goal is to create digital solutions/values addressing the needs of both public and private sectors and to contribute to the development of the digital economy and society of the kingdom.\n\nOur research includes:\n    - Khmer Natural Language Processing\n    - Artificial Intelligence\n    - Data Science\n    - Internet of Things\n    - Policy Research\n    - Technology Transfer\n    \nOur innovations include:\n    - The Digital Innovation Center\n    - The Makerspace\n    - Various Innovation Programs such as conferences and hackathons\n    - Digital Startup Programs\n    \nMore information about IDRI can be found at https://idri.edu.kh/\n"
+            ]
+        },
+        {
+            "tag": "expand_idg",
+            "patterns": [
+                "Expand on IDG",
+                "Expand IDG",
+                "Expand on Institute of Digital Governance",
+                "Expand Institute of Digital Governance",
+                "Can you expand on the Institute of Digital Governance",
+                "Can you expand on IDG",
+                "Can you expand more on the Institute of Digital Governance",
+                "Can you expand more on IDG"
+            ],
+            "responses": [
+                "The Institute of Digital Governance (IDG) is a training institute to develop digital skills and management through digital literacy training and up-skills for civil servants and government leaders.\n\nThe IDG provides the School of Digital Governance, which is an institution for building digital human capital through training, assessing, and certifying digital skills for civil servants.\n\nThe IDG also provides three certification programs:\n    - Certificate Course in Linux System Administration\n    - Certificate Course in Ethical Hacking and Information Security\n    - Certificate Course in Advanced Web Technology\n    \nMore information about the IDG can be found at https://idg.edu.kh/\n"
+            ]
         }
     ],
     "default_intent": {

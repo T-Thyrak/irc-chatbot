@@ -10,10 +10,10 @@ from dotenv import load_dotenv
 from multiprocessing import Queue
 from src.prompt_group import PromptGroup
 
-from src.helper import context_handlers, generate_name, generate_token, handle_message, xor, QueueSender, QueueFiller
+from src.helper import context_handlers, handle_message, xor, QueueSender, QueueFiller, verify_hash, shutdown_server
 from src.service import call_sender_API
 from src.tasks import notifyTelegram
-from src.wrappers import TTLDurations, UserIterations, ExpiringDict
+from src.wrappers import UserIterations, ExpiringDict
 
 from src.classify import classify
 
@@ -231,20 +231,22 @@ def test():
     # return jsonify({"message": telegram_process_handle.__str__()}), 200
     return jsonify({"message": "OK"}), 200
     
-@app.get('/api/v2/shutdown')
-def shutdown_get():
-    url = url_for('shutdown_post')
-    token = generate_token(ttl=TTLDurations.MINUTE)
-    random_var_name = generate_name()
-    return render_template('shutdown.html', url=url, secure_name=random_var_name, token=token)
-
-@app.post('/api/v2/shutdown')
+@app.route('/api/v2/shutdown', methods=['POST'])
 def shutdown_post():
+    print(request.json)
     body = request.json
     
-    # should receive a token, and a hash
-    token = body['token']
+    # should receive a hash of the shutdown token and the poison token
     shutdown_hash = body['hash']
+    token = body['token']
+    
+    # verify the hash
+    if (verify_hash(shutdown_hash, token)):
+        # if the hash is valid, shutdown the server
+        shutdown_server()
+        return jsonify({"message": "Server shutting down..."}), 200
+    
+    return jsonify({"message": "Invalid hash."}), 403
     
 @app.get('/api/v2/acknowledge')
 def ack():
