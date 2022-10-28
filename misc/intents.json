@@ -302,6 +302,43 @@
             "responses": [
                 "The Institute of Digital Governance (IDG) is a training institute to develop digital skills and management through digital literacy training and up-skills for civil servants and government leaders.\n\nThe IDG provides the School of Digital Governance, which is an institution for building digital human capital through training, assessing, and certifying digital skills for civil servants.\n\nThe IDG also provides three certification programs:\n    - Certificate Course in Linux System Administration\n    - Certificate Course in Ethical Hacking and Information Security\n    - Certificate Course in Advanced Web Technology\n    \nMore information about the IDG can be found at https://idg.edu.kh/\n"
             ]
+        },
+        {
+            "tag": "send_feedback",
+            "patterns": [
+                "I want to send a feedback",
+                "I want to send feedback",
+                "I want to send a feedback to the school",
+                "I want to send feedback to the school",
+                "I would like to improve the chatbot",
+                "I would like to improve the chatbot of the school",
+                "I would like to improve the chatbot of CADT",
+                "I would like to improve the chatbot of the school",
+                "I want to send a feedback to the school",
+                "I want to send feedback to the school",
+                "I want to send a report to the school",
+                "I want to send a bug report to the school",
+                "I want to send a bug report to CADT",
+                "report a bug",
+                "report a bug to the school",
+                "report a bug to CADT",
+                "improve the chatbot",
+                "improve the chatbot of the school",
+                "send improvement",
+                "send improvement to the school",
+                "feedback",
+                "feedback to the school",
+                "feedback to CADT",
+                "send feedback",
+                "bug",
+                "report",
+                "feedback"
+            ],
+            "responses": [
+                "I understand that you want to send a feedback to the school. Are you sure to continue?"
+            ],
+            "context_set": "send_feedback",
+            "context_drop": "send_feedback"
         }
     ],
     "default_intent": {

@@ -16,6 +16,7 @@ from src._context_handlers import *
 context_handlers = {
     'course_recommendation': handle_course_recommendation,
     'request_human': handle_request_human,
+    'send_feedback': handle_send_feedback,
 }
 
 token_storage_minute = expiringdict.ExpiringDict(max_len=1000, max_age_seconds=TTLDurations.MINUTE.value)
