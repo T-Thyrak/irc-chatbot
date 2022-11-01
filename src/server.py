@@ -124,6 +124,65 @@ def chat_v2_post():
             return "EVENT_RECEIVED", 200
     return "404 Not Found", 404
 
+@app.post('/api/v2t/chat')
+def chat_v2t():
+    body = request.get_json()
+    try:
+        sentence = body['sentence']
+        xsender_id = body['sender_id']
+        
+        if locks.get(xsender_id):
+            return jsonify({'error': 'locked'}), 403
+        
+        print(f"Received message from {xsender_id}")
+        
+        response = {}
+        if contexts.get(xsender_id) is None:
+            results = classify(model, sentence, words, classes)
+            
+            if results == []:
+                response['text'] = random.choice(intents['default_intent']['responses'])
+            
+            else:
+                for intent in intents['intents']:
+                    if intent['tag'] == results[0][0]:
+                        if 'context_filter' in intent:
+                            if contexts.get(xsender_id) == intent['context_filter']:
+                                response['text'] = random.choice(intent['responses'])
+                                if 'context_set' in intent:
+                                    contexts[xsender_id] = intent['context_set']
+                        
+                        else:
+                            response['text'] = random.choice(intent['responses'])
+                            if 'context_set' in intent:
+                                contexts[xsender_id] = intent['context_set']
+                        
+                        break
+                    
+        else:
+            if contexts.get(xsender_id) == 'request_human' and UserIterations.get(xsender_id) is not None:
+                return jsonify({'error': 'locked'}), 403
+            else:
+                context = contexts[xsender_id]
+                handler = context_handlers[context]
+                data = {
+                    'first_name': body['first_name'],
+                    'last_name': body['last_name'],
+                }
+                
+                response['text'], context_should_drop = handler(xsender_id, sentence, telegram=True, telegram_data=data)
+                
+                if context_should_drop:
+                    print(f"Dropping context for {xsender_id}: {context}")
+                    contexts.pop(xsender_id)
+    except KeyError:
+        return jsonify({'error': 'invalid request', 'message': 'missing keys'}), 400
+    except Exception as e:
+        e.printStackTrace()
+        return jsonify({'error': 'internal server error'}), 500
+    
+    return jsonify(response), 200
+
 
 @app.route('/api/v1/chat', methods=['POST'])
 def chat():

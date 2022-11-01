@@ -18,17 +18,48 @@ from src.shared_message_queue import shared_queue
 #         return asyncio.run(asyncio.wait_for(aioconsole.ainput(), timeout=0.1))
 #     except asyncio.TimeoutError:
 #         return ''
-    
+
+# load .env file
+load_dotenv()
+
+CHAT_ID = os.getenv('CHAT_ID')
+
 if os.path.exists('misc/lockables.dill'):
     with open('misc/lockables.dill', 'rb') as f:
         lockables = dill.load(f)
 else:
     lockables = expiringdict.ExpiringDict(max_len=int(os.getenv('MAX_LEN', 500)), max_age_seconds=60*60*24*7)
+    
+if os.path.exists('misc/registered_operators.dill'):
+    with open('misc/registered_operators.dill', 'rb') as f:
+        registered_operators = dill.load(f)
+else:
+    registered_operators = []
+    with open('misc/registered_operators.dill', 'wb') as f:
+        dill.dump(registered_operators, f)
 
 # flock = filelock.FileLock('misc/comfile.lock')
 
-# load .env file
-load_dotenv()
+def is_registered_operator(sender_id: str) -> bool:
+    return sender_id in registered_operators
+
+def register_operator(sender_id: str) -> bool:
+    if sender_id in registered_operators:
+        return False
+    
+    registered_operators.append(sender_id)
+    with open('misc/registered_operators.dill', 'wb') as f:
+        dill.dump(registered_operators, f)
+    return True
+ 
+def unregister_operator(sender_id: str) -> bool:
+    if sender_id not in registered_operators:
+        return False
+    
+    registered_operators.remove(sender_id)
+    with open('misc/registered_operators.dill', 'wb') as f:
+        dill.dump(registered_operators, f)
+    return True
 
 def send_message(message: str) -> None:
     updater.bot.send_message(chat_id=int(CHAT_ID), text=message)
@@ -108,6 +139,13 @@ def handle_shutdown() -> None:
     print('Saving lockables to file...')
     print('Done.')
     
+    print('Saving registered operators...')
+    with open('misc/registered_operators.dill', 'wb') as f:
+        dill.dump(registered_operators, f)
+    
+    print('Saving registered operators to file...')
+    print('Done.')
+    
     print('Stopping updater...')
     updater.stop()
     
@@ -128,12 +166,49 @@ def try_parse_command(com: str) -> tuple[str | None, str | None, bool, bool]:
     
     return line_count, sender_id, True, False
 
+def handle_register_operator(update: Update, context: CallbackContext) -> None:
+    if update.effective_chat.id != int(CHAT_ID):
+        return
+
+    if len(context.args) > 1:
+        send_message('Usage: /register [operator_id]')
+        return
+
+    if len(context.args) == 0:
+        operator_id = str(update.effective_user.id)
+    else:
+        operator_id = context.args[0]
+        
+    if register_operator(operator_id):
+        send_message(f'`{operator_id}` registered successfully.')
+    else:
+        send_message(f'`{operator_id}` is already registered.')
+        
+def handle_unregister_operator(update: Update, context: CallbackContext) -> None:
+    if update.effective_chat.id != int(CHAT_ID):
+        return
+
+    if len(context.args) > 1:
+        send_message('Usage: /unregister [operator_id]')
+        return
+
+    if len(context.args) == 0:
+        operator_id = str(update.effective_user.id)
+    else:
+        operator_id = context.args[0]
+        
+    if unregister_operator(operator_id):
+        send_message(f'`{operator_id}` unregistered successfully.')
+    else:
+        send_message(f'`{operator_id}` is not registered.')
+
 # startup bot
-CHAT_ID = os.getenv('CHAT_ID')
 updater = Updater(token=os.getenv('TELEGRAM_ACCESS_TOKEN'), use_context=True)
 updater.dispatcher.add_handler(CommandHandler('help', help))
 updater.dispatcher.add_handler(CommandHandler('lock', lock))
 updater.dispatcher.add_handler(CommandHandler('unlock', unlock))
+updater.dispatcher.add_handler(CommandHandler('register', handle_register_operator))
+updater.dispatcher.add_handler(CommandHandler('unregister', handle_unregister_operator))
 
 def init():
     print('Bot is running...')

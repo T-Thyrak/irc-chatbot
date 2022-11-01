@@ -2,6 +2,7 @@ misc/chatbot/**
 misc/yesno/**
 misc/comfile
 misc/lockables.dill
+misc/registered_operators.dill
 
 models/
 models_backup/

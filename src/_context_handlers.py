@@ -18,7 +18,7 @@ with open('misc/yesno/classes.pkl', 'rb') as f:
 load_path = os.path.join('models', 'yesno')
 yesno_model = load_model(load_path)
 
-def handle_course_recommendation(sender_psid: str, sentence: str, access_token: str) -> tuple[str, bool]:
+def handle_course_recommendation(sender_psid: str, sentence: str, access_token: str | None=None, telegram: bool=False, telegram_data: dict | None=None) -> tuple[str, bool]:
     # some codes
     
     if UserIterations.get(sender_psid) is None:
@@ -34,7 +34,7 @@ def handle_course_recommendation(sender_psid: str, sentence: str, access_token: 
         
     return "Alright, take this with a truckload of salt, but I recommend: <A course>", True
 
-def handle_request_human(sender_psid: str, sentence: str, access_token: str) -> tuple[str, bool]:
+def handle_request_human(sender_psid: str, sentence: str, access_token: str | None=None, telegram: bool=False, telegram_data: dict | None=None) -> tuple[str, bool]:
     if UserIterations.get(sender_psid) is None:
         UserIterations.inc(sender_psid)
         
@@ -43,16 +43,20 @@ def handle_request_human(sender_psid: str, sentence: str, access_token: str) -> 
         if result == [] or result[0][0] == 'answer.maybe' or result[0][0] == 'answer.no':
             return "I see, I will respect your choice. :)", True
         
-        r = requests.get(f"https://graph.facebook.com/v2.6/{sender_psid}?access_token={access_token}")
-        data = r.json()
-        print(data)
+        if not telegram:
+            r = requests.get(f"https://graph.facebook.com/v2.6/{sender_psid}?access_token={access_token}")
+            data = r.json()
+            print(data)
+        else:
+            data = telegram_data
+        
         notifyTelegram(f"L3ID{sender_psid}MSG\nA person named {data['first_name']} {data['last_name']} with the ID {sender_psid} has requested for a human to contact them on Messenger.\n\nPlease respond back to them ASAP.")
         return "Alright, I will connect you to a human agent. You can still talk to me in the meanwhile. :)", True
 
         
     return "", True
 
-def handle_send_feedback(sender_psid: str, sentence: str, access_token: str) -> tuple[str, bool]:
+def handle_send_feedback(sender_psid: str, sentence: str, access_token: str | None=None, telegram: bool=False, telegram_data: dict | None=None) -> tuple[str, bool]:
     if not hasattr(handle_send_feedback, 'feedback_type'):
         handle_send_feedback.feedback_type = None
         
@@ -87,9 +91,12 @@ def handle_send_feedback(sender_psid: str, sentence: str, access_token: str) -> 
         logging.info("Should be hit, 3rd time")
         UserIterations.inc(sender_psid)
         
-        r = requests.get(f"https://graph.facebook.com/v2.6/{sender_psid}?access_token={access_token}")
-        data = r.json()
-        
+        if not telegram:
+            r = requests.get(f"https://graph.facebook.com/v2.6/{sender_psid}?access_token={access_token}")
+            data = r.json()
+        else:
+            data = telegram_data
+            
         sql = "INSERT INTO `feedbacks` (`sender_id`, `name`, `feedback_type`, `feedback`) VALUES (%s, %s, %s, %s)"
         val = (sender_psid, f"{data['first_name']} {data['last_name']}", handle_send_feedback.feedback_type, sentence)
         
