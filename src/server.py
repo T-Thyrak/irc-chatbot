@@ -10,7 +10,6 @@ from dotenv import load_dotenv
 from multiprocessing import Queue
 
 from src.shared_message_queue import put_message_client
-from src.mysqlquery import create_connection, execute_query
 from src.prompt_group import PromptGroup
 from src.helper import context_handlers, handle_message, xor, QueueSender, QueueFiller, verify_hash, shutdown_server
 from src.service import call_sender_API
