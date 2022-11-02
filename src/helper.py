@@ -101,3 +101,9 @@ def shutdown_server():
     from win32.win32api import GenerateConsoleCtrlEvent
     
     GenerateConsoleCtrlEvent(0, 0)
+    
+def encode(id: int) -> str:
+    return str(id) + "TEL"
+
+def decode(id: str) -> int:
+    return int(id[:-3])

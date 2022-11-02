@@ -9,6 +9,7 @@ from keras.models import Model, load_model
 from dotenv import load_dotenv
 from multiprocessing import Queue
 
+from src.shared_message_queue import put_message_client
 from src.mysqlquery import create_connection, execute_query
 from src.prompt_group import PromptGroup
 from src.helper import context_handlers, handle_message, xor, QueueSender, QueueFiller, verify_hash, shutdown_server
@@ -284,26 +285,8 @@ def unlock():
 
 @app.route('/api/v2/test', methods=['GET'])
 def test():
-    # print(telegram_process_handle)
-    # telegram_process_handle.poll()
-    # filler.fill('L2ID1337MSG\nThe person `name` with ID `1337` has requested a human interaction!\n\nPlease respond to the user ASAP.')
-    # notifyTelegram('L3ID1337MSG\nThe person `name` with ID `1337` has requested a human interaction!\n\nPlease respond to the user ASAP.')
-    
-    # return jsonify({"message": telegram_process_handle.__str__()}), 200
-    # return jsonify({"message": "OK"}), 200
-    
-    db_conn = create_connection()
-    if db_conn is None:
-        return jsonify({"error": "Could not connect to database."}), 500
-    
-    res = execute_query("SELECT * FROM users", db_conn)
-    
-    k = []
-    k.append(("ID", "NAME", "IDENTIFIER", "IS_ADMIN"))
-    for i, name, identifier, isAdmin in res:
-        k.append((i, name, identifier, isAdmin))
-    
-    return jsonify({"message": k}), 200
+    put_message_client("DEASSIGN?USER=31337&OPERATOR=-25000")
+    return jsonify({"success": True}), 200
     
 @app.route('/api/v2/shutdown', methods=['POST'])
 def shutdown_post():

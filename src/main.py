@@ -24,8 +24,8 @@ if __name__ == "__main__":
     
     while True:
         try:
-            if not server_process.is_alive() or not telegram_process.is_alive() or not client_telegram_process.is_alive():
-                break
+            if telegram_process.is_alive() or client_telegram_process.is_alive():
+                pass
         except KeyboardInterrupt:
             break
     

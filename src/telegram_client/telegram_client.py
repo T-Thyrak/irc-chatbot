@@ -3,28 +3,25 @@ import random
 import requests
 import re
 from dotenv import load_dotenv
+from expiringdict import ExpiringDict
 
 from telegram.ext import CallbackContext, CallbackQueryHandler, Updater, CommandHandler, Filters, MessageHandler
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 
 from telegram.update import Update
 
-from src.telebot import registered_operators
-from src.shared_message_queue import shared_queue_client
+from src.helper import encode, decode
+from src.shared_message_queue import shared_queue_client, is_registered_operator
 
-conn_map = {}
-conn_map_inv = {}
+
+MAX_LEN = int(os.getenv("MAX_LEN", 500))
+op_to_user_map = ExpiringDict(max_len=MAX_LEN, max_age_seconds=60*30)
+user_to_op_map = ExpiringDict(max_len=MAX_LEN, max_age_seconds=60*30)
 
 
 load_dotenv()
 
 dont_die = True
-
-def encode(s: int) -> str:
-    return str(s) + "TEL"
-
-def decode(s: str) -> int:
-    return int(s[:-3])
 
 def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("""Hi! I am an information and recommendation chatbot for CADT.
@@ -69,8 +66,14 @@ def basic_info(update: Update, context: CallbackContext) -> None:
     )
     
 def chat(update: Update, context: CallbackContext) -> None:
+    if is_registered_operator(update.effective_user.id):
+        return
+    
     r = requests.post(f"http://localhost:{os.getenv('PORT', 8080)}/api/v2t/chat", json={"sentence": update.message.text, 'first_name': update.effective_user.first_name, 'last_name': update.effective_user.last_name, 'sender_id': encode(update.effective_user.id)})
     print(r.json())
+    if r.json().get('error') == 'locked':
+        return
+
     update.message.reply_text(r.json()['text'])
     
 def terminate() -> None:
@@ -83,7 +86,7 @@ def main() -> None:
     updater.dispatcher.add_handler(CommandHandler("menu", menu))
     updater.dispatcher.add_handler(CallbackQueryHandler(greetings, pattern="greetings"))
     updater.dispatcher.add_handler(CallbackQueryHandler(basic_info, pattern="basic_info"))
-
+    
     updater.dispatcher.add_handler(MessageHandler(Filters.text & (~Filters.command), chat))
     
     updater.start_polling()
@@ -96,6 +99,18 @@ def main() -> None:
                 if is_shutdown:
                     terminate()
                     break
+                
+                is_valid, command, user_id, operator_id = parse_message(message)
+                print(is_valid, command, user_id, operator_id)
+                if not is_valid:
+                    continue
+                
+                if command == "ASSIGN":
+                    print(f"Assigning {user_id} to {operator_id}")
+                    assign_op_to_user(user_id, operator_id)
+                elif command == "UNASSIGN":
+                    unassign_op_to_user(user_id)
+                
         except KeyboardInterrupt:
             terminate()
             break
@@ -105,3 +120,27 @@ def main() -> None:
     
     print("Client telegram bot shut down.")
     exit(0)
+
+def parse_message(message: str) -> tuple[bool, str, str, str]:
+    is_valid = re.match(r"^((?:|UN)ASSIGN)\?USER=((?:(?:|-)\d+)TEL)&OPERATOR=((?:(?:|-)\d+)TEL)$", message)
+    
+    if not is_valid:
+        return False, None, None, None
+    
+    command = is_valid.group(1)
+    user_id = is_valid.group(2)
+    operator = is_valid.group(3)
+    
+    print(command, user_id, operator)
+    
+    return True, command, user_id, operator
+
+
+def assign_op_to_user(user_id: str, operator_id: str) -> None:
+    op_to_user_map[operator_id] = user_id
+    user_to_op_map[user_id] = operator_id
+    
+def unassign_op_to_user(user_id: str) -> None:
+    operator_id = user_to_op_map[user_id]
+    del op_to_user_map[operator_id]
+    del user_to_op_map[user_id]
