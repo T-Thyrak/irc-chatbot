@@ -12,12 +12,14 @@ from telegram.update import Update
 
 from src.helper import encode, decode
 from src.shared_message_queue import shared_queue_client, is_registered_operator
+from src.ext.dual_map import DualMap
 
 
 MAX_LEN = int(os.getenv("MAX_LEN", 500))
 op_to_user_map = ExpiringDict(max_len=MAX_LEN, max_age_seconds=60*30)
 user_to_op_map = ExpiringDict(max_len=MAX_LEN, max_age_seconds=60*30)
 
+dual_map = DualMap()
 
 load_dotenv()
 
@@ -66,6 +68,10 @@ def basic_info(update: Update, context: CallbackContext) -> None:
     )
     
 def chat(update: Update, context: CallbackContext) -> None:
+    forward_user = dual_map.get(encode(update.effective_user.id))
+    if forward_user:
+        context.bot.send_message(chat_id=decode(forward_user), text=update.message.text)
+    
     if is_registered_operator(update.effective_user.id):
         return
     
@@ -75,6 +81,7 @@ def chat(update: Update, context: CallbackContext) -> None:
         return
 
     update.message.reply_text(r.json()['text'])
+
     
 def terminate() -> None:
     global dont_die
@@ -139,8 +146,10 @@ def parse_message(message: str) -> tuple[bool, str, str, str]:
 def assign_op_to_user(user_id: str, operator_id: str) -> None:
     op_to_user_map[operator_id] = user_id
     user_to_op_map[user_id] = operator_id
+    dual_map[user_id] = operator_id
     
 def unassign_op_to_user(user_id: str) -> None:
     operator_id = user_to_op_map[user_id]
     del op_to_user_map[operator_id]
     del user_to_op_map[user_id]
+    del dual_map[user_id]

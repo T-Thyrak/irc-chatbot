@@ -39,7 +39,7 @@ if __name__ == "__main__":
     client_terminate()
     print("after client_terminate")
     
-    while telegram_process.is_alive():
+    while telegram_process.is_alive() or client_telegram_process.is_alive():
         pass
     
     os._exit(0)

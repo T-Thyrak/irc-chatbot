@@ -7,11 +7,10 @@ from flask import Flask, request, jsonify, render_template, url_for
 from flask_cors import CORS
 from keras.models import Model, load_model
 from dotenv import load_dotenv
-from multiprocessing import Queue
 
 from src.shared_message_queue import put_message_client
-from src.prompt_group import PromptGroup
-from src.helper import context_handlers, handle_message, xor, QueueSender, QueueFiller, verify_hash, shutdown_server
+from src.ext.prompt_group import PromptGroup
+from src.helper import context_handlers, handle_message, xor, verify_hash, shutdown_server
 from src.service import call_sender_API
 from src.tasks import notifyTelegram
 from src.wrappers import UserIterations, ExpiringDict
@@ -43,11 +42,6 @@ open('misc/comfile', 'w').close()
 comfile_lock_path = 'misc/comfile.lock'
 
 # comfile_lock = filelock.FileLock(comfile_lock_path)
-
-msg_queue = Queue()
-
-filler = QueueFiller(msg_queue)
-sender = QueueSender()
 
 # telegram_process_handle = subprocess.Popen(['python', '-m', 'src.telebot'], shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 # print(telegram_process_handle)
@@ -322,12 +316,12 @@ def graceful_shutdown():
     # queue_pc.join()
     
     
-if __name__ == "__main__":
-    try:
-        # queue_pc.start()
-        app.run(port=int(os.getenv('PORT', 8080)))
-    except KeyboardInterrupt:
-        print("Keyboard interrupt detected. Shutting down...")
-        sender.terminate()
-        # queue_pc.join()
-        graceful_shutdown() 
+# if __name__ == "__main__":
+#     try:
+#         # queue_pc.start()
+#         app.run(port=int(os.getenv('PORT', 8080)))
+#     except KeyboardInterrupt:
+#         print("Keyboard interrupt detected. Shutting down...")
+#         sender.terminate()
+#         # queue_pc.join()
+#         graceful_shutdown() 
