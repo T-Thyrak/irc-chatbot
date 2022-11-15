@@ -11,3 +11,4 @@ models_backup/
 venv/
 
 .env
+target/
