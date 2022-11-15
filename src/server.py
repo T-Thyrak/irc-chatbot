@@ -121,6 +121,7 @@ def chat_v2_post():
 @app.post('/api/v2t/chat')
 def chat_v2t():
     body = request.get_json()
+    print(body)
     try:
         sentence = body['sentence']
         xsender_id = body['sender_id']
@@ -169,7 +170,7 @@ def chat_v2t():
                 if context_should_drop:
                     print(f"Dropping context for {xsender_id}: {context}")
                     contexts.pop(xsender_id)
-    except KeyError:
+    except KeyError as e:
         return jsonify({'error': 'invalid request', 'message': 'missing keys'}), 400
     except Exception as e:
         e.printStackTrace()

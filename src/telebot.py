@@ -256,7 +256,7 @@ def assign(update: Update, context: CallbackContext) -> None:
         return
     
     notifyTelegramClient(f"ASSIGN?USER={context.args[0]}&OPERATOR={update.effective_user.id}TEL")
-    
+    send_message(f"User `{context.args[0]}` has been assigned to operator `{update.effective_user.id}TEL` succesfully.")
 
 def unassign(update: Update, context: CallbackContext) -> None:
     if update.effective_chat.id != int(CHAT_ID):
@@ -283,6 +283,7 @@ def unassign(update: Update, context: CallbackContext) -> None:
         return
     
     notifyTelegramClient(f"UNASSIGN?USER={context.args[0]}&OPERATOR={update.effective_user.id}TEL")
+    send_message(f"User `{context.args[0]}` has been unassigned from operator `{update.effective_user.id}TEL` succesfully.")
     
 
 # startup bot

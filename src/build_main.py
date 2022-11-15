@@ -83,7 +83,7 @@ def main():
     
     model.save(save_path, overwrite=True)
     
-    plot_model(model, to_file='model.png', show_shapes=True, show_dtype=True) # remove this line if you don't want to generate the model image
+    plot_model(model, to_file='model.png', show_shapes=True, show_dtype=False, rankdir="LR", show_layer_names=False) # remove this line if you don't want to generate the model image
     return (words, classes)
 
 if __name__ == "__main__":
