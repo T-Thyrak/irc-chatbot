@@ -82,5 +82,10 @@ Main Chatbot Model
 
 ![Model](model.png)
 
+## Remote run script manager
+I use `remote` to manage the run scripts specified in the `remote.toml` file.
+
+Follow the instruction to get `remote` working [here](https://github.com/kuroyuki-kaze/remote).
+
 # Contributors
 - [T-Thyrak](https://github.com/T-Thyrak)
