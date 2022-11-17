@@ -3,10 +3,12 @@ import re
 import requests
 import expiringdict
 import dill
+import prettytable as pt
 
 from dotenv import load_dotenv
-from telegram.ext.updater import Updater
+from telegram import ParseMode
 from telegram.update import Update
+from telegram.ext.updater import Updater
 from telegram.ext.callbackcontext import CallbackContext
 from telegram.ext.commandhandler import CommandHandler
 
@@ -14,6 +16,9 @@ from src.helper import xor, encode
 from src.shared_message_queue import shared_queue, registered_operators, is_registered_operator
 from src.tasks import notifyTelegramClient
 from src.telegram_client.client_helper import operator_has_assigned, user_has_been_assigned
+from src.errors import ValidationError
+from src.telebot.telebot_helper import type_valid, status_valid, selector_valid, parse_selector
+from src.telebot.telebot_query import get_feedbacks
 
 # def readline() -> str:
 #     try:
@@ -74,6 +79,8 @@ Supported commands:
 Telegram IDs are the IDs that ends with `TEL`.
 /assign <sender_psid> - Assigns the specified sender_psid to the operator who sent the command (only for Telegram IDs)
 /unassign <sender_psid> - Unassigns the specified sender_psid from the operator who sent the command (only for Telegram IDs)
+
+/feedbacks [-p page] [-i rowID] [-s senderID] [-t type] [-w status] [-n name] - Fetches the feedbacks at [page]
 
 /help - Shows this message
 """
@@ -284,7 +291,102 @@ def unassign(update: Update, context: CallbackContext) -> None:
     
     notifyTelegramClient(f"UNASSIGN?USER={context.args[0]}&OPERATOR={update.effective_user.id}TEL")
     send_message(f"User `{context.args[0]}` has been unassigned from operator `{update.effective_user.id}TEL` succesfully.")
+
+def feedbacks(update: Update, context: CallbackContext) -> None:
+    if update.effective_chat.id != int(CHAT_ID):
+        return
+
+    page = 1
+    type = 'all'
+    status = 'all'
+    row = 0
+    sender_psid = ''
+    name = ''
+    selector = '*'
     
+    for idx, arg in enumerate(context.args):
+        if arg == '-p' and idx + 1 < len(context.args):
+            try:
+                page = int(context.args[idx + 1])
+            except ValueError:
+                send_message('Error: Invalid page number.')
+                return
+        elif arg == '-t' and idx + 1 < len(context.args):
+            try:
+                type = type_valid(context.args[idx + 1])
+            except ValidationError as e:
+                send_message(f'Error: {e.message()}')
+                return
+        elif arg == '-w' and idx + 1 < len(context.args):
+            try:
+                status = status_valid(context.args[idx + 1])
+            except ValidationError as e:
+                send_message(f'Error: {e.message()}')
+                return
+        elif arg == '-i' and idx + 1 < len(context.args):
+            try:
+                row = int(context.args[idx + 1])
+            except ValueError:
+                send_message('Error: Invalid row number.')
+                return
+        elif arg == '-u' and idx + 1 < len(context.args):
+            try:
+                sender_psid = context.args[idx + 1]
+            except ValueError:
+                send_message('Error: Invalid user ID.')
+                return
+        elif arg == '-n' and idx + 1 < len(context.args):
+            try:
+                name = context.args[idx + 1]
+            except ValueError:
+                send_message('Error: Invalid user ID.')
+                return
+        elif arg == '-S' and idx + 1 < len(context.args):
+            try:
+                selector = selector_valid(context.args[idx + 1])
+            except ValidationError as e:
+                send_message(f'Error: {e.message()}')
+                return
+        elif arg == '-h':
+            send_message('Usage: /feedbacks [-p page] [-t type] [-w status] [-i row] [-s sender_psid] [-S selector]')
+            return
+        else:
+            if arg.startswith('-'):
+                send_message(f'Error: Unknown command `{arg}`.')
+                send_message('Usage: /feedbacks [-p page] [-t type] [-w status] [-i row] [-s sender_psid] [-S selector]')
+                return
+    
+    selector_list = parse_selector(selector)
+    
+    data = get_feedbacks(page, type, status, row, sender_psid, name)
+    
+    table = pt.PrettyTable(selector_list)
+    
+    data = [x.to_tuple() for x in data]
+
+    for d_id, d_sender, d_name, d_type, d_message, d_status, d_timestamp in data:
+        row = []
+        
+        for s in selector_list:
+            s = s.lower()
+
+            if s == 'id':
+                row.append(d_id)
+            elif s == 'sender_psid':
+                row.append(d_sender)
+            elif s == 'name':
+                row.append(d_name)
+            elif s == 'feedback_type':
+                row.append(d_type)
+            elif s == 'message':
+                row.append(d_message)
+            elif s == 'feedback_status':
+                row.append(d_status)
+            elif s == 'created_at':
+                row.append(d_timestamp)
+        table.add_row(row)
+        
+    update.message.reply_text(f'<pre>{table}</pre>', parse_mode=ParseMode.HTML)
 
 # startup bot
 updater = Updater(token=os.getenv('TELEGRAM_ACCESS_TOKEN'), use_context=True)
@@ -296,6 +398,7 @@ updater.dispatcher.add_handler(CommandHandler('unregister', handle_unregister_op
 updater.dispatcher.add_handler(CommandHandler('howto', howto))
 updater.dispatcher.add_handler(CommandHandler('assign', assign))
 updater.dispatcher.add_handler(CommandHandler('unassign', unassign))
+updater.dispatcher.add_handler(CommandHandler('feedbacks', feedbacks))
 
 def init():
     print('Bot is running...')

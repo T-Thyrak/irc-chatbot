@@ -44,7 +44,10 @@ def execute_query(query: str, db_conn: mysql.connector.MySQLConnection, values: 
     cursor = db_conn.cursor()
     print(f"made cursor: {cursor}")
     cursor.execute(query, values)
-    print(f"executed query: {query % values}")
+    if values is not None:
+        print(f"executed query: {query % values}")
+    else:
+        print(f"executed query: {query}")
     rt_result = cursor.fetchall()
     print(f"got result: {rt_result}")
     cursor.close()

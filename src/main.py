@@ -1,6 +1,6 @@
 from multiprocessing.dummy import Process
 from src.server import app
-from src.telebot import init, terminate, run
+from src.telebot.telebot import init, terminate, run
 from src.server import graceful_shutdown
 from src.telegram_client.telegram_client import main as client_main, terminate as client_terminate
 
