@@ -18,7 +18,7 @@ from src.tasks import notifyTelegramClient
 from src.telegram_client.client_helper import operator_has_assigned, user_has_been_assigned
 from src.errors import ValidationError
 from src.telebot.telebot_helper import type_valid, status_valid, selector_valid, parse_selector
-from src.telebot.telebot_query import get_feedbacks
+from src.telebot.telebot_query import get_feedbacks, set_feedback_status
 
 # def readline() -> str:
 #     try:
@@ -80,7 +80,24 @@ Telegram IDs are the IDs that ends with `TEL`.
 /assign <sender_psid> - Assigns the specified sender_psid to the operator who sent the command (only for Telegram IDs)
 /unassign <sender_psid> - Unassigns the specified sender_psid from the operator who sent the command (only for Telegram IDs)
 
-/feedbacks [-p page] [-i rowID] [-s senderID] [-t type] [-w status] [-n name] - Fetches the feedbacks at [page]
+/feedbacks [-p page] [-i rowID] [-s senderID] [-t type] [-w status] [-n name] [-S selector]
+    -p page: The page number of the feedbacks to be displayed (default: 1)
+    -i rowID: The row ID of the feedback to be displayed. If specified, all other arguments will be ignored.
+    -s senderID: Filters the feedbacks by senderID
+    -t type: Filters the feedbacks by type (`Bug`, `Improvement`)
+    -w status: Filters the feedbacks by status (`Received`, `Processing`, `Ignored`, `Implemented`)
+    -n name: Filters the feedbacks by name
+    
+    -S selector: A selector of columns to be displayed, separated by commas. The following columns are supported:
+        '*' - All columns
+        or any combination of the following columns: `id`, `sender_psid`, `name`, `feedback_type`, `message`, `feedback_status`, `created_at`
+        
+        Examples:
+        -S id,sender_psid,feedback_type,feedback_status
+        
+/setstatus <rowID> <status> - Sets the status of the feedback with the specified rowID to the specified status.
+Refer to /feedbacks for the list of supported statuses.
+            
 
 /help - Shows this message
 """
@@ -387,6 +404,30 @@ def feedbacks(update: Update, context: CallbackContext) -> None:
         table.add_row(row)
         
     update.message.reply_text(f'<pre>{table}</pre>', parse_mode=ParseMode.HTML)
+    
+def setstatus(update: Update, context: CallbackContext) -> None:
+    if update.effective_chat.id != int(CHAT_ID):
+        return
+    
+    if len(context.args) != 2:
+        send_message('Usage: /setstatus <row> <status>')
+        return
+    
+    try:
+        row = int(context.args[0])
+    except ValueError:
+        send_message('Error: Invalid row number.')
+        return
+    
+    try:
+        status = status_valid(context.args[1])
+    except ValidationError as e:
+        send_message(f'Error: {e.message()}')
+        return
+    
+    set_feedback_status(row, status)
+    
+    send_message(f'Feedback with row `{row}` has been set to status `{status}` succesfully.')
 
 # startup bot
 updater = Updater(token=os.getenv('TELEGRAM_ACCESS_TOKEN'), use_context=True)
@@ -399,6 +440,7 @@ updater.dispatcher.add_handler(CommandHandler('howto', howto))
 updater.dispatcher.add_handler(CommandHandler('assign', assign))
 updater.dispatcher.add_handler(CommandHandler('unassign', unassign))
 updater.dispatcher.add_handler(CommandHandler('feedbacks', feedbacks))
+updater.dispatcher.add_handler(CommandHandler('setstatus', setstatus))
 
 def init():
     print('Bot is running...')

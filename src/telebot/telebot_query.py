@@ -48,8 +48,19 @@ def get_feedbacks(page: int, type: str, status: str, row: int, sender_psid: str,
         
         result = execute_query(query, db_conn, tuple(values)) if len(values) > 0 else execute_query(query, db_conn)
     
+    destroy_connection(db_conn)
     if result is None:
         return []
     else:
         return [Feedback.from_tuple(row) for row in result]
             
+            
+def set_feedback_status(row: int, status: str):
+    db_conn = create_connection()
+    start_commit(db_conn)
+    
+    query = "UPDATE `feedbacks` SET `feedback_status` = %s WHERE `id` = %s"
+    execute_query(query, db_conn, (status, row))
+    
+    end_commit(db_conn)
+    destroy_connection(db_conn)
