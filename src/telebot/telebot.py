@@ -442,6 +442,19 @@ updater.dispatcher.add_handler(CommandHandler('unassign', unassign))
 updater.dispatcher.add_handler(CommandHandler('feedbacks', feedbacks))
 updater.dispatcher.add_handler(CommandHandler('setstatus', setstatus))
 
+updater.dispatcher.bot.set_my_commands([
+    ('help', 'Show help'),
+    ('howto', 'Show how to use this bot'),
+    ('lock', 'Lock the bot for a specific user'),
+    ('unlock', 'Unlock the bot for a specific user'),
+    ('register', 'Register yourself as an operator'),
+    ('unregister', 'Unregister yourself as an operator'),
+    ('assign', 'Assign a user to an operator'),
+    ('unassign', 'Unassign a user from an operator'),
+    ('feedbacks', 'Show feedbacks'),
+    ('setstatus', 'Set feedback status for a specific feedback'),
+])
+
 def init():
     print('Bot is running...')
     updater.start_polling()

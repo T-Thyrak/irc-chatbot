@@ -2,6 +2,7 @@ import os
 import random
 import requests
 import re
+
 from dotenv import load_dotenv
 from expiringdict import ExpiringDict
 
@@ -13,13 +14,27 @@ from telegram.update import Update
 from src.helper import encode, decode
 from src.shared_message_queue import shared_queue_client, is_registered_operator
 from src.ext.dual_map import DualMap
-
+from src.ext.prompt_group import PromptGroup
+from src.telegram_client.dyn_func import dyn_func
 
 MAX_LEN = int(os.getenv("MAX_LEN", 500))
 op_to_user_map = ExpiringDict(max_len=MAX_LEN, max_age_seconds=60*30)
 user_to_op_map = ExpiringDict(max_len=MAX_LEN, max_age_seconds=60*30)
 
 dual_map = DualMap()
+
+prompts = [
+    PromptGroup('Greetings', 'greetings', [
+        "Hello",
+        "Hi there",
+        "How are you doing",
+    ]),
+    PromptGroup('Basic Info', 'basic_info', [
+        "What is CADT?",
+        "What is the purpose of CADT?",
+        "What is the purpose of this chatbot?",
+    ]),
+]
 
 load_dotenv()
 
@@ -39,8 +54,7 @@ def menu_message() -> str:
     return "Please select an intent from the list below. This will send a random prompt of the corresponding intent.\nRemember, you can also just type your question in the chatbox too."
 
 def menu_keyboard() -> InlineKeyboardMarkup:
-    keyboard = [[InlineKeyboardButton('Greetings', callback_data='greetings')],
-                [InlineKeyboardButton('Basic Information', callback_data='basic_info')]]
+    keyboard = [[InlineKeyboardButton(prompt_group.name, callback_data=prompt_group.label)] for prompt_group in prompts]
     return InlineKeyboardMarkup(keyboard)
 
 def greetings(update: Update, context: CallbackContext) -> None:
@@ -81,8 +95,19 @@ def chat(update: Update, context: CallbackContext) -> None:
         return
 
     update.message.reply_text(r.json()['text'])
-
     
+def help(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text("""List of commands:
+/start - Start the bot
+/menu - Show the list of intents I support
+/help - Show this message
+
+You can also just type your question in the chatbox too.
+I will try to answer it as best as I can.
+Example: What can you do?
+Answer: I can answer questions about the institute, its courses, and its facilities.
+""")
+
 def terminate() -> None:
     global dont_die
     dont_die = False
@@ -91,10 +116,20 @@ def main() -> None:
     updater = Updater(token=os.getenv("TELEGRAM_CLIENT_ACCESS_TOKEN"), use_context=True)
     updater.dispatcher.add_handler(CommandHandler("start", start))
     updater.dispatcher.add_handler(CommandHandler("menu", menu))
-    updater.dispatcher.add_handler(CallbackQueryHandler(greetings, pattern="greetings"))
-    updater.dispatcher.add_handler(CallbackQueryHandler(basic_info, pattern="basic_info"))
+    updater.dispatcher.add_handler(CommandHandler("help", help))
+    # updater.dispatcher.add_handler(CallbackQueryHandler(greetings, pattern="greetings"))
+    # updater.dispatcher.add_handler(CallbackQueryHandler(basic_info, pattern="basic_info"))
+    
+    for prompt_group in prompts:
+        updater.dispatcher.add_handler(CallbackQueryHandler(dyn_func(prompt_group, updater), pattern=prompt_group.label))
     
     updater.dispatcher.add_handler(MessageHandler(Filters.text & (~Filters.command), chat))
+    
+    updater.dispatcher.bot.set_my_commands([
+        ("help", "Show the list of commands"),
+        ("menu", "Show the list of intents"),
+        ("start", "Start the bot"),
+    ])
     
     updater.start_polling()
     
