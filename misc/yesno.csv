@@ -1,155 +1,155 @@
 Answer,Sentence
-answer.maybe,"I don't have a clue"
-answer.maybe,"I don't have a clue"
-answer.maybe,"I don't know"
-answer.maybe,"I don't know"
-answer.maybe,"I have no clue"
-answer.maybe,"I have no idea"
-answer.maybe,"I may agree"
-answer.maybe,"I might agree"
-answer.maybe,"I think so"
-answer.maybe,"I think so"
-answer.maybe,"I'm not sure if I agree"
-answer.maybe,"I'm not sure if I agree"
-answer.maybe,"I'm not sure if I agree"
-answer.maybe,"I'm not sure if I agree"
-answer.maybe,"I'm not sure if I agree"
-answer.maybe,"I'm not sure"
-answer.maybe,"no idea"
-answer.maybe,"not sure"
-answer.maybe,"not sure"
-answer.maybe,"I dunno"
-answer.maybe,"idk"
-answer.maybe,dunno
-answer.maybe,maybe
-answer.maybe,maybe
-answer.maybe,meh
-answer.maybe,perhaps
-answer.maybe,possibly
-answer.maybe,unsure
-answer.maybe,wait
-answer.no,"I changed my mind"
-answer.no,"I don't agree"
-answer.no,"I don't agree"
-answer.no,"I don't agree"
-answer.no,"I don't agree"
-answer.no,"I don't agree"
-answer.no,"absolutely not"
-answer.no,"belay that"
-answer.no,"cut it out"
-answer.no,"don't do anything"
-answer.no,"don't do it"
-answer.no,"forget it"
-answer.no,"never mind"
-answer.no,"no thanks"
-answer.no,"no way"
-answer.no,"on second thought, don't do it"
-answer.no,"please don't"
-answer.no,"scratch that"
-answer.no,cancel
-answer.no,denied
-answer.no,disengage
-answer.no,don't
-answer.no,end
-answer.no,exit
-answer.no,halt
-answer.no,n
-answer.no,nah
-answer.no,nay
-answer.no,nay
-answer.no,neg
-answer.no,negative
-answer.no,negatory
-answer.no,nein
-answer.no,nevermind
-answer.no,nevermind
-answer.no,no
-answer.no,no
-answer.no,no
-answer.no,nope
-answer.no,nope
-answer.no,nyet
-answer.no,quit
-answer.no,skip
-answer.no,stop
-answer.no,stop
-answer.yes,"I agree"
-answer.yes,"I agree"
-answer.yes,"I agree"
-answer.yes,"I agree"
-answer.yes,"I agree"
-answer.yes,"I agree"
-answer.yes,"I agree"
-answer.yes,"I agree"
-answer.yes,"I agree"
-answer.yes,"I'm sure"
-answer.yes,"I'm sure"
-answer.yes,"I'm sure"
-answer.yes,"I'm sure"
-answer.yes,"I'm sure"
-answer.yes,"aye aye"
-answer.yes,"carry on"
-answer.yes,"do it"
-answer.yes,"do it"
-answer.yes,"do it"
-answer.yes,"get on with it then"
-answer.yes,"go ahead"
-answer.yes,"i agree"
-answer.yes,"make it happen"
-answer.yes,"make it so"
-answer.yes,"most assuredly"
-answer.yes,"perfect, thanks"
-answer.yes,"please do"
-answer.yes,"rock on"
-answer.yes,"that's correct"
-answer.yes,"that's right"
-answer.yes,"uh huh"
-answer.yes,"yeah, do it"
-answer.yes,"yes, do it"
-answer.yes,"yes, please"
-answer.yes,"you got it"
-answer.yes,absolutely
-answer.yes,absolutely
-answer.yes,absolutely
-answer.yes,affirmative
-answer.yes,alright
-answer.yes,assuredly
-answer.yes,aye
-answer.yes,certainly
-answer.yes,confirmed
-answer.yes,continue
-answer.yes,continue
-answer.yes,correct
-answer.yes,da
-answer.yes,good
-answer.yes,hooray
-answer.yes,ja
-answer.yes,ok
-answer.yes,ok
-answer.yes,ok
-answer.yes,okay
-answer.yes,proceed
-answer.yes,righto
-answer.yes,sure
-answer.yes,sure
-answer.yes,sure
-answer.yes,sure
-answer.yes,sure
-answer.yes,sure
-answer.yes,sure
-answer.yes,sure
-answer.yes,sure
-answer.yes,thanks
-answer.yes,totally
-answer.yes,true
-answer.yes,y
-answer.yes,ya
-answer.yes,ya
-answer.yes,yay
-answer.yes,yea
-answer.yes,yeah
-answer.yes,yeah
-answer.yes,yep
-answer.yes,yeppers
-answer.yes,yes
-answer.yes,yes
+answer.maybe ,"I don't have a clue"
+answer.maybe ,"I don't have a clue"
+answer.maybe ,"I don't know"
+answer.maybe ,"I don't know"
+answer.maybe ,"I have no clue"
+answer.maybe ,"I have no idea"
+answer.maybe ,"I may agree"
+answer.maybe ,"I might agree"
+answer.maybe ,"I think so"
+answer.maybe ,"I think so"
+answer.maybe ,"I'm not sure if I agree"
+answer.maybe ,"I'm not sure if I agree"
+answer.maybe ,"I'm not sure if I agree"
+answer.maybe ,"I'm not sure if I agree"
+answer.maybe ,"I'm not sure if I agree"
+answer.maybe ,"I'm not sure"
+answer.maybe ,"no idea"
+answer.maybe ,"not sure"
+answer.maybe ,"not sure"
+answer.maybe ,"I dunno"
+answer.maybe ,"idk"
+answer.maybe ,dunno
+answer.maybe ,maybe
+answer.maybe ,maybe
+answer.maybe ,meh
+answer.maybe ,perhaps
+answer.maybe ,possibly
+answer.maybe ,unsure
+answer.maybe ,wait
+answer.no    ,"I changed my mind"
+answer.no    ,"I don't agree"
+answer.no    ,"I don't agree"
+answer.no    ,"I don't agree"
+answer.no    ,"I don't agree"
+answer.no    ,"I don't agree"
+answer.no    ,"absolutely not"
+answer.no    ,"belay that"
+answer.no    ,"cut it out"
+answer.no    ,"don't do anything"
+answer.no    ,"don't do it"
+answer.no    ,"forget it"
+answer.no    ,"never mind"
+answer.no    ,"no thanks"
+answer.no    ,"no way"
+answer.no    ,"on second thought, don't do it"
+answer.no    ,"please don't"
+answer.no    ,"scratch that"
+answer.no    ,cancel
+answer.no    ,denied
+answer.no    ,disengage
+answer.no    ,don't
+answer.no    ,end
+answer.no    ,exit
+answer.no    ,halt
+answer.no    ,n
+answer.no    ,nah
+answer.no    ,nay
+answer.no    ,nay
+answer.no    ,neg
+answer.no    ,negative
+answer.no    ,negatory
+answer.no    ,nein
+answer.no    ,nevermind
+answer.no    ,nevermind
+answer.no    ,no
+answer.no    ,no
+answer.no    ,no
+answer.no    ,nope
+answer.no    ,nope
+answer.no    ,nyet
+answer.no    ,quit
+answer.no    ,skip
+answer.no    ,stop
+answer.no    ,stop
+answer.yes   ,"I agree"
+answer.yes   ,"I agree"
+answer.yes   ,"I agree"
+answer.yes   ,"I agree"
+answer.yes   ,"I agree"
+answer.yes   ,"I agree"
+answer.yes   ,"I agree"
+answer.yes   ,"I agree"
+answer.yes   ,"I agree"
+answer.yes   ,"I'm sure"
+answer.yes   ,"I'm sure"
+answer.yes   ,"I'm sure"
+answer.yes   ,"I'm sure"
+answer.yes   ,"I'm sure"
+answer.yes   ,"aye aye"
+answer.yes   ,"carry on"
+answer.yes   ,"do it"
+answer.yes   ,"do it"
+answer.yes   ,"do it"
+answer.yes   ,"get on with it then"
+answer.yes   ,"go ahead"
+answer.yes   ,"i agree"
+answer.yes   ,"make it happen"
+answer.yes   ,"make it so"
+answer.yes   ,"most assuredly"
+answer.yes   ,"perfect, thanks"
+answer.yes   ,"please do"
+answer.yes   ,"rock on"
+answer.yes   ,"that's correct"
+answer.yes   ,"that's right"
+answer.yes   ,"uh huh"
+answer.yes   ,"yeah, do it"
+answer.yes   ,"yes, do it"
+answer.yes   ,"yes, please"
+answer.yes   ,"you got it"
+answer.yes   ,absolutely
+answer.yes   ,absolutely
+answer.yes   ,absolutely
+answer.yes   ,affirmative
+answer.yes   ,alright
+answer.yes   ,assuredly
+answer.yes   ,aye
+answer.yes   ,certainly
+answer.yes   ,confirmed
+answer.yes   ,continue
+answer.yes   ,continue
+answer.yes   ,correct
+answer.yes   ,da
+answer.yes   ,good
+answer.yes   ,hooray
+answer.yes   ,ja
+answer.yes   ,ok
+answer.yes   ,ok
+answer.yes   ,ok
+answer.yes   ,okay
+answer.yes   ,proceed
+answer.yes   ,righto
+answer.yes   ,sure
+answer.yes   ,sure
+answer.yes   ,sure
+answer.yes   ,sure
+answer.yes   ,sure
+answer.yes   ,sure
+answer.yes   ,sure
+answer.yes   ,sure
+answer.yes   ,sure
+answer.yes   ,thanks
+answer.yes   ,totally
+answer.yes   ,true
+answer.yes   ,y
+answer.yes   ,ya
+answer.yes   ,ya
+answer.yes   ,yay
+answer.yes   ,yea
+answer.yes   ,yeah
+answer.yes   ,yeah
+answer.yes   ,yep
+answer.yes   ,yeppers
+answer.yes   ,yes
+answer.yes   ,yes

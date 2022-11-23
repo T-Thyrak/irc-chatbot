@@ -6,26 +6,34 @@
                 "Hi there",
                 "How are you",
                 "Hello",
-                "Hi",
                 "Good day",
                 "Is anyone there?",
                 "Hey",
                 "What's up",
                 "Wassup",
-                "Yo",
                 "Hey there",
                 "Greetings",
                 "Good to see you",
                 "Nice to meet you",
                 "Good to meet you",
-                "Sup"
+                "Sup",
+                "សូមអញ្ជើញសួស្ដី",
+                "ជម្រាបសួរ",
+                "សូមជម្រាបសួរ"
             ],
-            "responses": [
-                "Hello there, thanks for asking. Please type 'What can you do?' for things that I can do.",
-                "Hi there, Please type 'What can you do?' for things that I can do.",
-                "Hello, Please type 'What can you do?' for things that I can do.",
-                "Greetings, Please type 'What can you do?' for things that I can do."
-            ]
+            "responses": {
+                "en": [
+                    "Hello there, thanks for asking. Please type 'What can you do?' for things that I can do.",
+                    "Hi there, Please type 'What can you do?' for things that I can do.",
+                    "Hello, Please type 'What can you do?' for things that I can do.",
+                    "Greetings, Please type 'What can you do?' for things that I can do."
+                ],
+                "km": [
+                    "បាទសូមជម្រាបសួរ! សូមបញ្ជូលពាក្យថា តើអ្នកអាចធ្វីអ្វីបានខ្លះ? សម្រាប់បង្ហាញនូវសេវាកម្មរបស់ខ្ញុំ",
+                    "សូមបញ្ជូលពាក្យថា តើអ្នកអាចធ្វីអ្វីបានខ្លះ? សម្រាប់បង្ហាញនូវសេវាកម្មរបស់ខ្ញុំ",
+                    "សួស្តីបាទ! សូមបញ្ជូលពាក្យថា តើអ្នកអាចធ្វីអ្វីបានខ្លះ? សម្រាប់បង្ហាញនូវសេវាកម្មរបស់ខ្ញុំ"
+                ]
+            }
         },
         {
             "tag": "whoami",
@@ -38,11 +46,21 @@
                 "How should I address you",
                 "What's your name",
                 "who am i",
-                "whoami"
+                "whoami",
+                "តើអ្នកមានឈ្មោះអ្វី?",
+                "តើអ្នកឈ្មោះអី?",
+                "ឈ្មោះអី?",
+                "អាណាគេ?",
+                "តើអ្នកជាអ្នកណាគេ?"
             ],
-            "responses": [
-                "I am a chatbot to provide you informations about the school. Please ask me any questions you have about the school."
-            ]
+            "responses": {
+                "en": [
+                    "I am a chatbot to provide you informations about the CADT Institute. Please ask me any questions you have about the institute."
+                ],
+                "km": [
+                    "ខ្ញុំជាកម្មវិធីសន្ទនាមួយ ដើម្បីផ្តល់ព័ត៌មានអំពីវិទ្យាស្ថាន CADT។ បើអ្នកមានចម្ងល់អ្វីអំពីវិទ្យាស្ថាននេះ សូមអញ្ជើញសួរមកចុះ ខ្ញុំនឹងខំប្រឹងដើម្បីឆ្លើយតបទៅកាន់សំណួររបស់អ្នក។"
+                ]
+            }
         },
         {
             "tag": "thanks",
@@ -55,21 +73,23 @@
                 "Thanks so much",
                 "Thank you so much",
                 "Thanks for the information",
-                "Thank you for the information"
+                "Thank you for the information",
+                "អរគុណ",
+                "អរគុណច្រើន",
+                "សូមអរគុណច្រើន",
+                "អរគុណច្រើនសម្រាប់ព័ត៌មាននេះ",
+                "អរគុណច្រើនណាស់សម្រាប់ព័ត៌មាននេះ"
             ],
-            "responses": [
-                "Happy to help!",
-                "Any time!",
-                "My pleasure."
-            ]
-        },
-        {
-            "tag": "noanswer",
-            "patterns": [""],
-            "responses": [
-                "I'm sorry, I don't understand. Please ask me another question.",
-                "I'm not sure I understood that. Please ask me another question."
-            ]
+            "responses": {
+                "en": [
+                    "Happy to help!",
+                    "Any time!",
+                    "My pleasure."
+                ],
+                "km": [
+                    "បាទ! អរគុណច្រើនសម្រាប់ការសន្ទនាជាមួយខ្ញុំ!"
+                ]
+            }
         },
         {
             "tag": "options",
@@ -93,11 +113,22 @@
                 "can you do",
                 "can you provide",
                 "can you offer",
-                "can you help me"
+                "can you help me",
+                "តើអ្នកអាចធ្វើអ្វីបានខ្លះ",
+                "តើអ្នកអាចធ្វើអីបាន?",
+                "ធ្វើអីបាន",
+                "អាចជ្រើសបានអ្វីខ្លះ",
+                "តើខ្ញុំអាចធ្វើអ្វីបានខ្លះ",
+                "តើខ្ញុំអាចជ្រើសរើសបានអ្វីខ្លះ"
             ],
-            "responses": [
-                "I can provide you with the basic informations about the school, and provide you a recommendation for a course if you don't know what to apply for."
-            ]
+            "responses": {
+                "en": [
+                    "I can provide you with the basic informations about the school, and provide you a recommendation for a course if you don't know what to apply for.\nI can understand English and Khmer.\n\nAs for now, I support the following intents:\n- Greetings and Thanks\n- Options\n- Course Recommendation\n- Basic Informations\n- Expanded Informations\n- Contact Information\n- FAQ\n- Feedback\n- Request human"
+                ],
+                "km": [
+                    "ខ្ញុំអាចផ្ដល់ព័ត៌មានផ្សេងៗអំពីវិទ្យាស្ថានបាន ហើយខ្ញុំក៏អាចជួយអ្នកជ្រើសរើសនូវជំនាញដែលសមស្របចំពោះអ្នក បើសិនជាអ្នកមានការពិបាកក្នុងការសម្រេចចិត្តថា តើគួរតែជ្រើសរើសយកជំនាញណាមួយ។\nខ្ញុំអាចស្គាល់ភាសាអង់គ្លេសនិងភាសាខ្មែរ។\n\nបច្ចុប្បន្ននេះ ខ្ញុំអាចជួយអ្នកបានដោយផ្តល់ព័ត៌មានផ្សេងៗដូចជា៖\n- សួស្តីនិងអរគុណ\n- ជម្រើសដែលអាចធ្វើបាន\n- រើសជំនាញ\n- ព័ត៌មានមូលដ្ឋាន\n- ព័ត៌មានលម្អិត\n- ព័ត៌មានទំនាក់ទំនង\n- សំណួរដែលសួរជាច្រើន\n- ផ្ដល់មតិយោបល់\n- ស្នើសុំនិយាយជាមួយមនុស្សផ្ទាល់"
+                ]
+            }
         },
         {
             "tag": "basic_info",
@@ -110,11 +141,28 @@
                 "basic info",
                 "information",
                 "basic information",
-                "tell information"
+                "tell information",
+                "how many courses",
+                "How many coursed does CADT have?",
+                "ព័ត៌មានមូលដ្ឋាន",
+                "តើសាលានេះមានជំនាញណាខ្លះ",
+                "តើសាលារៀនដូចម្ដេច",
+                "តើវិទ្យាស្ថាននេះមានជំនាញណាខ្លះ",
+                "តើវិទ្យាស្ថានដូចម្ដេច",
+                "ប្រាប់ព័ត៌មានមូលដ្ឋាន",
+                "ប្រាប់ព័ត៌មានសាលា",
+                "ប្រាប់ព័ត៌មានវិទ្យាស្ថាន",
+                "ប្រាប់ខ្ញុំអំពីសាលា",
+                "ប្រាប់ខ្ញុំអំពីវិទ្យាស្ថាន"
             ],
-            "responses": [
-                "Our school name is CADT, standing for \"Cambodia Academy of Digital Technology\". We formerly went by the name NIPTICT.\nCADT aims to be the flagship research and education institution for Digital Technology and Innovation.\n\nWe provide three bachlor programs in our Institute of Digital Technology:\n    - Bachelor of Computer Science\n    - Bachelor of Telecoms and Networking\n    - Bachelor of E-commerce\n\nYou can request to expand more on any of these subjects by typing \"expand <subject>\".\n\n- Mission and Vision\n- Board of Trustees\n- Institute of Digital Technology\n- Institute of Digital Governance\n- Institute of Digital Research & Innovation\n\nAlternatively, you can visit our website at https://cadt.edu.kh/ for more information."
-            ]
+            "responses": {
+                "en": [
+                    "Our school name is CADT, standing for \"Cambodia Academy of Digital Technology\". We formerly went by the name NIPTICT.\nCADT aims to be the flagship research and education institution for Digital Technology and Innovation.\n\nWe provide three bachlor programs in our Institute of Digital Technology:\n    - Bachelor of Computer Science\n    - Bachelor of Telecoms and Networking\n    - Bachelor of E-commerce\n\nYou can request to expand more on any of these subjects by typing \"expand <subject>\".\n\n- Mission and Vision\n- Board of Trustees\n- Institute of Digital Technology\n- Institute of Digital Governance\n- Institute of Digital Research & Innovation\n\nAlternatively, you can visit our website at https://cadt.edu.kh/ for more information."
+                ],
+                "km": [
+                    "ឈ្មោះសាលារបស់យើងគឺ CADT ពាក្យពេញគឺ \"Cambodia Academy of Digital Technology\" ហើយឈ្មោះជាភាសាខ្មែរគឺ បណ្ឌិតសភាបច្ចេកវិទ្យាឌីជីថលកម្ពុជា។ មុននេះយើងបានប្រើឈ្មោះមួយផ្សេងទៀតគឺ NIPTICT។\nCADT ជាវិទ្យាស្ថានជាតិមួយដែលបានបង្កើតឡើងដើម្បីធ្វើជាវិទ្យាស្ថានឈានមុខគេ ក្នុងគោលបំណងក្នុងការសិក្សាស្រាវជ្រាវនិងបណ្ដុះបណ្ដាលសិស្សានុសិស្សនិងមន្ត្រីស៊ីវិល ទៅលើផ្នែកការឆ្នៃប្រឌិតនិងការប្រើប្រាស់បច្ចេកវិទ្យាឌីជីថល។\n\nនៅវិទ្យាស្ថាន CADT យើងនេះ យើងផ្ដល់នូវការបណ្ដុះបណ្ដាលកម្រិតបរិញ្ញាបត្រចំនួន ៣ប្រភេទគឺ៖\n    - បរិញ្ញាបត្រវិទ្យាសាស្រ្តកុំព្យូទ័រ (Bachelor of Computer Science)\n    - បរិញ្ញាបត្រទូរគមនាគមន៍ និងបណ្ដាញ (Bachelor of Telecoms and Networking)\n    - បរិញ្ញាបត្រពាណិជ្ជកម្មអេឡិចត្រូនិច (Bachelor of E-Commerce)\n\nអ្នកអាចស្នើសុំពង្រីកលម្អិតបន្ថែមអំពីវិទ្យាស្ថានណាមួយនៅក្នុង CADT ដោយបញ្ចូលពាក្យ \"ខ្ញុំចង់ដឹងបន្ថែមអំពី <...>\"។\n\n- បេសកកម្មនិងទស្សនៈ របស់វិទ្យាស្ថាន (Mission and Vision)\n- ក្រុមប្រឹក្សាភិបាលនៃCADT (Board of Trustees)\n- វិទ្យាស្ថានបច្ចេកវិទ្យាឌីជីថល (Institute of Digital Technology)\n- វិទ្យាស្ថានអភិបាលកិច្ចឌីជីថល (Institute of Digital Governance)\n- វិទ្យាស្ថានស្រាវជ្រាវនិងនវានុវត្តន៍ឌីជីថល (Institute of Digital Research & Innovation)\n\nក្រៅពីនេះទៅទៀត, អ្នកអាចចូលទៅកាន់វែបសាយរបស់CADT នៅឯ https://cadt.edu.kh/ ដើម្បីទទួលបានព័ត៌មានផ្សេងៗបន្ថែមទៀត។"
+                ]
+            }
         },
         {
             "tag": "contact_info",
@@ -130,11 +178,22 @@
                 "more information",
                 "contact",
                 "contact school",
-                "contact information"
+                "contact information",
+                "ខ្ញុំចង់បានលេខទំនាក់ទំនងអំពីសាលា",
+                "ខ្ញុំចង់ទំនាក់ទំនងទៅសាលា",
+                "ខ្ញុំចង់ទទួលបានព័ត៌មានបន្ថែមអំពីសាលា",
+                "ខ្ញុំចង់ទទួលបានព័ត៌មានបន្ថែម",
+                "ខ្ញុំចង់ទាក់ទងទៅសាលា",
+                "ខ្ញុំចង់ទាក់ទងទៅកាន់សាលា"
             ],
-            "responses": [
-                "For more complete information about our school, please visit our website at https://cadt.edu.kh/. \n\nIf you have any questions, please contact us at idt@cadt.edu.kh, or call us at +855 10 340 000."
-            ]
+            "responses": {
+                "en": [
+                    "For more complete information about our school, please visit our website at https://cadt.edu.kh/. \n\nIf you have any questions, please contact us at pr@cadt.edu.kh, or call us at +855 10 340 000. You can also check out our Facebook page at  https://www.facebook.com/CADT.Academy/, or you can visit us on-site at over Bridge #2, National Road 6A, Sangkat Prek Leap, Khan Chroy Changva, Phnom Penh."          
+                ],
+                "km": [
+                    "សូមចូលទៅកាន់គេហទំព័ររបស់យើងដើម្បីទទួលបានព័ត៌មានលម្អិតបន្ថែមអំពីសាលារបស់យើងនៅវែបសាយខាងក្រោម៖ https://cadt.edu.kh/ \n\nបើអ្នកមានសំណួរណាមួយសូមទាក់ទងមកយើងដោយផ្ញើអ៊ីមែលទៅកាន់ pr@cadt.edu.kh ឬទំនាក់ទំនងទៅលេខទូរស័ព្ទ +855 10 340 000. អ្នកក៏អាចទាក់ទងមកកាន់យើងខ្ញុំតាមរយៈ ហ្វេសបុក https://www.facebook.com/CADT.Academy/ ឬ មកកាន់ទីតាំងកន្លែងធ្វើការផ្ទាល់នៅ ស្ពានទី២ ផ្លូវជាតិលេខ៦A សង្កាត់ព្រែកលាប ខណ្ឌជ្រោយចង្វា រាជធានីភ្នំពេញ។"
+                ]
+            }
         },
         {
             "tag": "course_recommendation",
@@ -156,27 +215,28 @@
                 "recommendation",
                 "recommendation course",
                 "recommendation program",
-                "recommendation me"
+                "recommendation me",
+                "ខ្ញុំអត់ដឹងថាគួរជ្រើសរើសជំនាញណាទេ",
+                "ខ្ញុំអត់ដឹងថាគួរជ្រើសរើសវគ្គសិក្សាណាទេ",
+                "ខ្ញុំមិនដឹងថាគួរជ្រើសរើសវគ្គសិក្សាណាមួយ",
+                "ខ្ញុំមិនដឹងថាគួរជ្រើសរើសជំនាញណាមទេ",
+                "ជ្រើសរើសជំនាញមួយ",
+                "ខ្ញុំចង់ជ្រើសរើសជំនាញ",
+                "ខ្ញុំចង់ជ្រើសរើសវគ្គសិក្សា",
+                "ខ្ញុំចង់ជ្រើសរើសវគ្គសិក្សាមួយ",
+                "ខ្ញុំជ្រើសរើសជំនាញមួយ",
+                "រើសជំនាញ"
             ],
-            "responses": [
-                "Please answer the following questions so that I know what you are interested in. Are you sure to continue?"
-            ],
+            "responses": {
+                "en": [
+                    "Please answer the following questions so that I know what you are interested in. Are you sure to continue?"
+                ],
+                "km": [
+                    "សូមឆ្លើយតបនូវសំណួរខាងក្រោមដើម្បីខ្ញុំដឹងថាអ្នកចង់ជ្រើសរើសជំនាញណាដែរ។ តើអ្នកពិតជាចង់បន្តទេ?"
+                ]
+            },
             "context_set": "course_recommendation",
             "context_drop": "course_recommendation"
-        },
-        {
-            "tag": "fun_fact",
-            "patterns": [
-                "Tell me a fun fact",
-                "Tell me something interesting about the school",
-                "Tell me a fact about the school",
-                "Can you tell me a fact about the school",
-                "Can you tell me something interesting about the school",
-                "Can you tell me something cool about the school"
-            ],
-            "responses": [
-                "WIP: Some facts"
-            ]
         },
         {
             "tag": "request_human",
@@ -205,11 +265,30 @@
                 "real person",
                 "real human",
                 "person",
-                "agent"
+                "agent",
+                "ខ្ញុំចង់សួរមកមនុស្ស",
+                "ខ្ញុំចង់សួរមកមនុស្សមួយ",
+                "ខ្ញុំចង់សួរមកមនុស្សពិត",
+                "ខ្ញុំចង់សួរមកមនុស្សពិតមួយ",
+                "ខ្ញុំចង់សួរមកមនុស្សពិតមួយនាក់",
+                "ខ្ញុំចង់និយាយជាមួយមនុស្ស",
+                "ខ្ញុំចង់និយាយជាមួយមនុស្សម្នាក់",
+                "ខ្ញុំចង់និយាយជាមួយមនុស្សពិត",
+                "ខ្ញុំចង់និយាយជាមួយមនុស្សពិតមួយ",
+                "ទាក់ទងមនុស្សពិត",
+                "និយាយជាមួយមនុស្ស",
+                "និយាយជាមួយបុគ្គលិក",
+                "ខ្ញុំចង់និយាយជាមួយបុគ្គលិកម្នាក់",
+                "ខ្ញុំចង់និយាយជាមួយបុគ្គលិក"
             ],
-            "responses": [
-                "I see, I will transfer you to a human. You can still talk to me in the meanwhile :)\n\nIf there is no one available, consider contacting the school directly.\n\nAre you sure to continue?"
-            ],
+            "responses": {
+                "en": [
+                    "I see, I will transfer you to a human. You can still talk to me in the meanwhile :)\n\nIf there is no one available, consider contacting the school directly.\n\nAre you sure to continue?"
+                ],
+                "km": [
+                    "បាទប្រាកដណាស់ ខ្ញុំនឹងផ្ទេរអ្នកទៅកាន់ខាងបុគ្គលិកម្នាក់ ហើយអ្នកក៏អាចនិយាយជាមួយខ្ញុំបានដែរនៅពេលកំពុងរង់ចាំ :)\n\nប្រសិនបើមិនមានបុគ្គលិកទាក់ទងទៅវិញទេនោះ សូមអ្នកទាក់ទងមកកាន់សាលាដោយប្រើវិធីផ្សេងៗទៀត។\n\nតើអ្នកពិតជាចង់បន្តទេ?"
+                ]
+            },
             "context_set": "request_human",
             "context_drop": "request_human"
         },
@@ -231,11 +310,26 @@
                 "Can you expand more on mission and vision",
                 "Can you expand more on mission",
                 "Can you expand more on vision",
-                "Can you expand more on mission and vision of the school"
+                "Can you expand more on mission and vision of the school",
+                "ខ្ញុំចង់ដឹងបន្ថែមអំពីបេសកកម្មនិងទស្សនៈរបស់សាលា",
+                "ខ្ញុំចង់ដឹងបន្ថែមអំពីបេសកកម្មរបស់សាលា",
+                "ខ្ញុំចង់ដឹងបន្ថែមអំពីទស្សនៈរបស់សាលា",
+                "ប្រាប់ខ្ញុំបន្ថែមអំពីបេសកកម្មនិងទស្សនៈរបស់សាលា",
+                "ប្រាប់ខ្ញុំបន្ថែមអំពីបេសកកម្មរបស់សាលា",
+                "ប្រាប់ខ្ញុំបន្ថែមអំពីទស្សនៈរបស់សាលា",
+                "ចូរអ្នកប្រាប់ខ្ញុំបន្ថែមអំពីបេសកកម្មនិងទស្សនៈរបស់សាលា",
+                "ចូរអ្នកប្រាប់ខ្ញុំបន្ថែមអំពីបេសកកម្មរបស់សាលា",
+                "ចូរអ្នកប្រាប់ខ្ញុំបន្ថែមអំពីទស្សនៈរបស់សាលា"
+
             ],
-            "responses": [
-                "Our mission is to provide education, training, R&D and promote innovation on digital technology to students, civil servants, and innovators to contribute to the development of digital government, economy and society.\n\nOur vision is to be the flagship public education and research institute institution, developing excellent digital talent and innovators, driving Cambodia towards a digital society."
-            ]
+            "responses": {
+                "en": [
+                    "Our mission is to provide education, training, R&D and promote innovation on digital technology to students, civil servants, and innovators to contribute to the development of digital government, economy and society.\n\nOur vision is to be the flagship public education and research institution, developing excellent digital talent and innovators, driving Cambodia towards a digital society."
+                ],
+                "km": [
+                    "បេសកកម្មរបស់យើងគឺ ធ្វើការផ្ដល់នូវការបង្រៀន បណ្ដុះបណ្ដាល ការស្រាវជ្រាវនិងការបង្កើត និងជំរុញការឆ្នៃប្រឌិតទៅលើបច្ចេកវិទ្យាឌីជីថល ទៅកាន់សិស្សានុសិស្ស មន្រ្តីស៊ីវិល និងអ្នកឆ្នៃប្រឌិតផ្សេងៗដើម្បីចូលរួមចំណែកក្នុងការអភិវឌ្ឈទៅលើ រដ្ឋាភិបាល សេដ្ឋកិច្ច និងសង្គមឌីជីថល។\n\nចំណែកឯទស្សនៈរបស់យើងវិញ គឺនឹងក្លាយទៅជាវិទ្យាស្ថានឈានមុខគេក្នុងការបណ្ដុះបណ្ដាលនិងស្រាវជ្រាវសាធារណៈ បង្កើតឡើងយុវជននិងអ្នកឆ្នៃប្រឌិតដែលមានទេពកោសល្យខ្ពស់ដែលនឹងដឹកនាំកម្ពុជាឱ្យក្លាយជាសង្គមឌីជិថលមួយ។"
+                ]
+            }
         },
         {
             "tag": "expand_board_of_trustees",
@@ -251,11 +345,21 @@
                 "Can you expand more on board of trustees",
                 "Can you expand more on board",
                 "Can you expand more on board of trustees of the school",
-                "Can you expand more on board of the school"
+                "Can you expand more on board of the school",
+                "ខ្ញុំចង់ដឹងបន្ថែមអំពីក្រុមប្រឹក្សាភិបាល",
+                "ចូរប្រាប់ខ្ញុំអំពីក្រុមប្រឹក្សាភិបាល",
+                "ចូរប្រាប់ខ្ញុំអំពីក្រុមប្រឹក្សាភិបាលរបស់សាលា",
+                "ប្រាប់ខ្ញុំអំពីក្រុមប្រឹក្សាភិបាលរបស់សាលាបន្ថែម",
+                "ប្រាប់ខ្ញុំអំពីក្រុមប្រឹក្សាភិបាលបន្ថែម"
             ],
-            "responses": [
-                "The board of trustees of CADT includes the following members:\n    - H.E. Dr. KHOV Makara, Chairman, and Secretary of State of the Ministry of Post and Telecommunications\n    - H.E. Prof. CHHEM Kieth Rethy, Member, and Minister Delegate Attached to the Prime Minister\n    - H.E. Dr. YOUK Ngoy, Member, and Secretary of State of the Ministry of Education, Youth and Sport\n    - H.E. Dr. CHHEANG Vannarith, Member, and Director General and Dictorate General of Policy, Ministry of Economy and Finance,\n    - Mr. CHAB Dina, Member, and Deputy Director General of the General Affairs, Ministry of Civil Service\n    - H.E. Dr. SENG Sopheap, Member, and President of Cambodia Academy of Digital Technology\n    - H.E. Dr. SAM Sethserey, Director General of Institute of Digital Research and Innovation\n"
-            ]
+            "responses": {
+                "en": [
+                    "The board of trustees of CADT includes the following members:\n    - H.E. Dr. KHOV Makara, Chairman, and Secretary of State of the Ministry of Post and Telecommunications\n    - H.E. Prof. CHHEM Kieth Rethy, Member, and Minister Delegate Attached to the Prime Minister\n    - H.E. Dr. YOUK Ngoy, Member, and Secretary of State of the Ministry of Education, Youth and Sport\n    - H.E. Dr. CHHEANG Vannarith, Member, and Director General and Directorate General of Policy, Ministry of Economy and Finance,\n    - Mr. CHAB Dina, Member, and Deputy Director General of the General Affairs, Ministry of Civil Service\n    - H.E. Dr. SENG Sopheap, Member, and President of Cambodia Academy of Digital Technology\n    - H.E. Dr. SAM Sethserey, Director General of Institute of Digital Research and Innovation\n"
+                ],
+                "km": [
+                    "ក្រុមប្រឹក្សាភិបាលរបស់សាលាកម្ពុជាអេក្រង់ទិន្នន័យមានសមាជិកដូចតទៅខាងក្រោម៖\n    - ឯកឧត្តមបណ្ឌិត ខូវ មករា អនុរដ្ឋលេខាធិការក្រសួងប្រៃសណីយ៍ និងទូរគមនាគមន៍\n    - ឯកឧត្តមសាស្ត្រាចារ្យបណ្ឌិត ឆែម គាតរិទ្ធី រដ្ឋមន្ត្រីប្រតិភូអមនាយករដ្ឋមន្ត្រី\n    - ឯកឧត្តមបណ្ឌិត យក់ ង៉ុយ រដ្ឋលេខាធិការក្រសួងអប់រំ យុវជន និងកីឡា\n    - ឯកឧត្តមបណ្ឌិត ឈាង វណ្ណារិទ្ធ អគ្គនាយក អគ្គនាយកដ្ឋានគោលនយោបាយ ក្រសួងសេដ្ឋកិច្ចនិងហិរញ្ញវត្ថុ\n    - លោក ចាប ឌីណា អគ្គនាយករង អគ្គនាយកដ្ឋានកិច្ចការទូទៅ ក្រសួងមុខងារសាធារណៈ\n    - ឯកឧត្តមបណ្ឌិត សេង សុភាព ប្រធានបណ្ឌីតសភាបច្ចេកវិទ្យាឌីជីថលកម្ពុជា\n    - ឯកឧត្តម សំ សិទ្ធសេរី អគ្គនាយកវិទ្យាស្ថានស្រាវជ្រាវនិងនវានុវត្តន៍ឌីជីថល(IDRI)"
+                ]
+            }
         },
         {
             "tag": "expand_idt",
@@ -266,11 +370,19 @@
                 "Can you expand on the Institute of Digital Technology",
                 "Can you expand on IDT",
                 "Can you expand more on the Institute of Digital Technology",
-                "Can you expand more on IDT"
+                "Can you expand more on IDT",
+                "ខ្ញុំចង់ដឹងបន្ថែមអំពីវិទ្យាស្ថានបច្ចេកវិទ្យាឌីជីថល",
+                "ប្រាប់ខ្ញុំបន្ថែមអំពីវិទ្យាស្ថានបច្ចេកវិទ្យាឌីជីថល",
+                "ប្រាប់ខ្ញុំបន្ថែម IDT"
             ],
-            "responses": [
-                "The Institute of Digital Technology (IDT) is a public higher education institution specialized in digital technology, providing excellent training programs to foster digital talents indespensible for the development of the digital economy and society.\n\nIDT provides three bachelor degree programs, and they are:\n    - Bachelor of Computer Science\n    - Bachelor of E-Commerce\n    - Bachelor of Telecoms and Networking\n\nThe Bachelor of Computer Science is the study of computers and computational systems, we focus mostly on software systems, including computer theory, design, development, and application.\n\nThe Bachelor of E-Commerce is an undergraduate program, specifically designed to prepare students for the contemporary workforce and a global career, especially for the emerging market. The program aims to equip students with effective digital knowledge and a strong commercial grounding in business by combining theory and practice to build their understanding of business operation alongside technology development.\n\nThe Bachelor of Telecoms and Networking is designed to provide students with a firmly-grounded, practical, and multidisciplinary training with effective learning resources. Students will get well training and targeting to qualify in various international certifications such as Cisco Certified Network Associate (CCNA), CCDA, Network Security, and CCNA Service Provider.\n\nMore information about each of the programs can be found at:\n- https://idt.edu.kh/bachelor-of-computer-science/ for Computer Science\n- https://idt.edu.kh/bachelor-of-e-commerce/ for E-Commerce\n- https://idt.edu.kh/bachelor-of-telecoms-and-networking/ for Telecoms and Networking\n"
-            ]
+            "responses": {
+                "en": [
+                    "The Institute of Digital Technology (IDT) is a public higher education institution specialized in digital technology, providing excellent training programs to foster digital talents indespensible for the development of the digital economy and society.\n\nIDT provides three bachelor degree programs, and they are:\n    - Bachelor of Computer Science\n    - Bachelor of E-Commerce\n    - Bachelor of Telecoms and Networking\n\nThe Bachelor of Computer Science is the study of computers and computational systems, we focus mostly on software systems, including computer theory, design, development, and application.\n\nThe Bachelor of E-Commerce is an undergraduate program, specifically designed to prepare students for the contemporary workforce and a global career, especially for the emerging market. The program aims to equip students with effective digital knowledge and a strong commercial grounding in business by combining theory and practice to build their understanding of business operation alongside technology development.\n\nThe Bachelor of Telecoms and Networking is designed to provide students with a firmly-grounded, practical, and multidisciplinary training with effective learning resources. Students will get well training and targeting to qualify in various international certifications such as Cisco Certified Network Associate (CCNA), CCDA, Network Security, and CCNA Service Provider.\n\nMore information about each of the programs can be found at:\n- https://idt.edu.kh/bachelor-of-computer-science/ for Computer Science\n- https://idt.edu.kh/bachelor-of-e-commerce/ for E-Commerce\n- https://idt.edu.kh/bachelor-of-telecoms-and-networking/ for Telecoms and Networking\n"
+                ],
+                "km": [
+                    "វិទ្យាស្ថានបច្ចេកវិទ្យាឌីជីថល (IDT) គឺជាគ្រឹះស្ថានឧត្តមសិក្សាសាធារណៈដែលមានឯកទេសខាងបច្ចេកវិទ្យាឌីជីថល ដោយផ្តល់នូវកម្មវិធីបណ្តុះបណ្តាលដ៏ល្អឥតខ្ចោះ ដើម្បីជំរុញទេពកោសល្យឌីជីថលដែលមិនអាចខ្វះបានសម្រាប់ការអភិវឌ្ឍសេដ្ឋកិច្ច និងសង្គមឌីជីថល។\n\nIDT ផ្តល់កម្មវិធីបណ្ដុះបណ្ដាលថ្នាក់បរិញ្ញាបត្រចំនួនបី គឺ៖\n - បរិញ្ញាបត្រវិទ្យាសាស្ត្រកុំព្យូទ័រ\n - បរិញ្ញាបត្រ ពាណិជ្ជកម្មអេឡិចត្រូនិច\n - បរិញ្ញាបត្រទូរគមនាគមន៍ និងបណ្តាញ\n\nបរិញ្ញាបត្រវិទ្យាសាស្ត្រកុំព្យូទ័រ គឺជាការសិក្សាអំពីកុំព្យូទ័រ និងប្រព័ន្ធកុំព្យូទ័រ យើងផ្តោតភាគច្រើនលើប្រព័ន្ធកម្មវិធី រួមទាំង ទ្រឹស្តីកុំព្យូទ័រ ការរចនា ការអភិវឌ្ឍន៍ និងកម្មវិធី។\n\nបរិញ្ញាបត្រពាណិជ្ជកម្មអេឡិចត្រូនិច គឺជាកម្មវិធីថ្នាក់បរិញ្ញាបត្រ ដែលត្រូវបានរចនាឡើងជាពិសេសដើម្បីរៀបចំនិស្សិតសម្រាប់កម្លាំងការងារសហសម័យ និងអាជីពជាសកល ជាពិសេសសម្រាប់ទីផ្សារដែលកំពុងរីកចម្រើន។ កម្មវិធីនេះមានគោលបំណងផ្តល់ជូននិស្សិតនូវចំណេះដឹងឌីជីថលប្រកបដោយប្រសិទ្ធភាព និងមូលដ្ឋានពាណិពាណិជ្ជកម្មអេឡិចត្រូនិចជ្ជកម្មដ៏រឹងមាំនៅក្នុងអាជីវកម្ម ដោយរួមបញ្ចូលគ្នានូវទ្រឹស្តី និងការអនុវត្ត ដើម្បីបង្កើតការយល់ដឹងរបស់ពួកគេអំពីប្រតិបត្តិការអាជីវកម្ម រួមជាមួយនឹងការអភិវឌ្ឍន៍បច្ចេកវិទ្យា។\n\nបរិញ្ញាបត្រផ្នែកទូរគមនាគមន៍ និងបណ្តាញត្រូវបានរចនាឡើងដើម្បីផ្តល់ឱ្យនិស្សិតនូវភាពរឹងមាំ - ការបណ្តុះបណ្តាលមូលដ្ឋាន ជាក់ស្តែង និងពហុជំនាញ ជាមួយនឹងធនធានសិក្សាប្រកបដោយប្រសិទ្ធភាព។ សិស្សនឹងទទួលបានការបណ្តុះបណ្តាលយ៉ាងល្អ និងការកំណត់គោលដៅដើម្បីមានលក្ខណៈគ្រប់គ្រាន់ក្នុងវិញ្ញាបនប័ត្រអន្តរជាតិផ្សេងៗដូចជា Cisco Certified Network Associate (CCNA), CCDA, Network Security, និង CCNA Service Provider។\n\nព័ត៌មានបន្ថែមអំពីកម្មវិធីនីមួយៗអាចរកបាននៅ៖\n - https://idt.edu.kh/bachelor-of-computer-science/ សម្រាប់វិទ្យាសាស្ត្រកុំព្យូទ័រ\n- https://idt.edu.kh/bachelor-of-e-commerce/ for ពាណិជ្ជកម្មអេឡិចត្រូនិច\n- https://idt.edu.kh/bachelor-of-telecoms-and-networking/ សម្រាប់ទូរគមនាគមន៍ និងបណ្តាញ\n"
+                ]
+            }
         },
         {
             "tag": "expand_idri",
@@ -281,11 +393,19 @@
                 "Can you expand on the Institute of Digital Research and Innovation",
                 "Can you expand on IDRI",
                 "Can you expand more on the Institute of Digital Research and Innovation",
-                "Can you expand more on IDRI"
+                "Can you expand more on IDRI",
+                "ប្រាប់ខ្ញុំបន្ថែមអំពីវិទ្យាស្ថានស្រាវជ្រាវនិងនវានុវត្តន៍ឌីជីថល",
+                "ចូរប្រាប់ខ្ញុំបន្ថែមអំពីវិទ្យាស្ថានស្រាវជ្រាវនិងនវានុវត្តន៍ឌីជីថល",
+                "ខ្ញុំចង់ដឹងបន្ថែមអំពីវិទ្យាស្ថានស្រាវជ្រាវនិងនវានុវត្តន៍ឌីជីថល"
             ],
-            "responses": [
-                "The Institute of Digital Research and Innovation (IDRI) is a public research institution under the Cambodia Academy of Digital Technology in charge of research and development in digital technology and digital innovation and entrepreneurship promotion.\n\nOur goal is to create digital solutions/values addressing the needs of both public and private sectors and to contribute to the development of the digital economy and society of the kingdom.\n\nOur research includes:\n    - Khmer Natural Language Processing\n    - Artificial Intelligence\n    - Data Science\n    - Internet of Things\n    - Policy Research\n    - Technology Transfer\n    \nOur innovations include:\n    - The Digital Innovation Center\n    - The Makerspace\n    - Various Innovation Programs such as conferences and hackathons\n    - Digital Startup Programs\n    \nMore information about IDRI can be found at https://idri.edu.kh/\n"
-            ]
+            "responses": {
+                "en": [
+                    "The Institute of Digital Research and Innovation (IDRI) is a public research institution under the Cambodia Academy of Digital Technology in charge of research and development in digital technology and digital innovation and entrepreneurship promotion.\n\nOur goal is to create digital solutions/values addressing the needs of both public and private sectors and to contribute to the development of the digital economy and society of the kingdom.\n\nOur research includes:\n    - Khmer Natural Language Processing\n    - Artificial Intelligence\n    - Data Science\n    - Internet of Things\n    - Policy Research\n    - Technology Transfer\n    \nOur innovations include:\n    - The Digital Innovation Center\n    - The Makerspace\n    - Various Innovation Programs such as conferences and hackathons\n    - Digital Startup Programs\n    \nMore information about IDRI can be found at https://idri.edu.kh/\n"
+                ],
+                "km": [
+                    "វិទ្យាស្ថានស្រាវជ្រាវ និងនវានុវត្តន៍ឌីជីថល (IDRI) គឺជាស្ថាប័នស្រាវជ្រាវសាធារណៈមួយនៅក្រោមបណ្ឌិត្យសភាបច្ចេកវិទ្យាឌីជីថលកម្ពុជា ទទួលបន្ទុកស្រាវជ្រាវ និងអភិវឌ្ឍន៍ផ្នែកបច្ចេកវិទ្យាឌីជីថល និងការច្នៃប្រឌិតឌីជីថល និងការលើកកម្ពស់សហគ្រិនភាព។\n\nគោលដៅរបស់យើងគឺបង្កើតដំណោះស្រាយឌីជីថល ឬតម្លៃដែលឆ្លើយតបទៅនឹងតម្រូវការរបស់ទាំងវិស័យសាធារណៈ និងឯកជន និងដើម្បីរួមចំណែកដល់ការអភិវឌ្ឍន៍សេដ្ឋកិច្ចឌីជីថល និងសង្គមនៃព្រះរាជាណាចក្រ។\n\nការស្រាវជ្រាវរបស់យើងរួមមាន៖\n - ដំណើរការភាសាខ្មែរធម្មជាតិ\n - បញ្ញាសិប្បនិម្មិត\n - វិទ្យាសាស្ត្រទិន្នន័យ \n - Internet of Things\n - ការស្រាវជ្រាវគោលនយោបាយ\n - ការផ្ទេរបច្ចេកវិទ្យា\n \nការច្នៃប្រឌិតរបស់យើងរួមមានៈ\n - មជ្ឈមណ្ឌលច្នៃប្រឌិតឌីជីថល\n - The Makerspace\n - កម្មវិធីច្នៃប្រឌិតផ្សេងៗ ដូចជាសន្និសីទ និងការ Hackathons\n - Digital startups\n \nព័ត៌មានបន្ថែមអំពី IDRI អាចរកបាននៅ https://idri.edu.kh/\n"
+                ]
+            }
         },
         {
             "tag": "expand_idg",
@@ -297,11 +417,19 @@
                 "Can you expand on the Institute of Digital Governance",
                 "Can you expand on IDG",
                 "Can you expand more on the Institute of Digital Governance",
-                "Can you expand more on IDG"
+                "Can you expand more on IDG",
+                "ប្រាប់ខ្ញុំបន្ថែមអំពីវិទ្យាស្ថានអភិបាលកិច្ចឌីជីថល",
+                "ចូរប្រាប់ខ្ញុំបន្ថែមអំពីវិទ្យាស្ថានអភិបាលកិច្ចឌីជីថល",
+                "ខ្ញុំចង់ដឹងបន្ថែមអំពីវិទ្យាស្ថានអភិបាលកិច្ចឌីជីថល"
             ],
-            "responses": [
-                "The Institute of Digital Governance (IDG) is a training institute to develop digital skills and management through digital literacy training and up-skills for civil servants and government leaders.\n\nThe IDG provides the School of Digital Governance, which is an institution for building digital human capital through training, assessing, and certifying digital skills for civil servants.\n\nThe IDG also provides three certification programs:\n    - Certificate Course in Linux System Administration\n    - Certificate Course in Ethical Hacking and Information Security\n    - Certificate Course in Advanced Web Technology\n    \nMore information about the IDG can be found at https://idg.edu.kh/\n"
-            ]
+            "responses": {
+                "en": [
+                    "The Institute of Digital Governance (IDG) is a training institute to develop digital skills and management through digital literacy training and up-skills for civil servants and government leaders.\n\nThe IDG provides the School of Digital Governance, which is an institution for building digital human capital through training, assessing, and certifying digital skills for civil servants.\n\nThe IDG also provides three certification programs:\n    - Certificate Course in Linux System Administration\n    - Certificate Course in Ethical Hacking and Information Security\n    - Certificate Course in Advanced Web Technology\n    \nMore information about the IDG can be found at https://idg.edu.kh/\n"
+                ],
+                "km": [
+                    "វិទ្យាស្ថានអភិបាលកិច្ចឌីជីថល (IDG) គឺជាវិទ្យាស្ថានបណ្តុះបណ្តាលដើម្បីអភិវឌ្ឍជំនាញឌីជីថល និងការគ្រប់គ្រងតាមរយៈការបណ្តុះបណ្តាលចំណេះដឹងផ្នែកឌីជីថល និងបង្កើនជំនាញសម្រាប់មន្ត្រីរាជការ និងថ្នាក់ដឹកនាំរដ្ឋាភិបាល។\n\nIDG ផ្តល់នូវសាលាអភិបាលកិច្ចឌីជីថល ដែលជាស្ថាប័នមួយ សម្រាប់ការកសាងមូលធនមនុស្សឌីជីថលតាមរយៈការបណ្តុះបណ្តាល ការវាយតម្លៃ និងការបញ្ជាក់ជំនាញឌីជីថលសម្រាប់មន្ត្រីរាជការ។\n\nIDG ក៏ផ្តល់នូវកម្មវិធីវិញ្ញាបនប័ត្រចំនួនបីផងដែរ៖\n - វគ្គសិក្សា Certificate in Linux System Administration\n - វគ្គសិក្សា Certificate in Ethical Hacking and Information Security\n - វគ្គសិក្សា Certificate in Advanced Web Technology\n \nព័ត៌មានបន្ថែមអំពី IDG អាចរកបាននៅ https://idg.edu.kh/\n"
+                ]
+            }
         },
         {
             "tag": "send_feedback",
@@ -332,21 +460,126 @@
                 "send feedback",
                 "bug",
                 "report",
-                "feedback"
+                "feedback",
+                "ផ្ដល់មតិ",
+                "ផ្ដល់មតិទៅកាន់សាលា",
+                "មតិ",
+                "មតិទៅកាន់សាលា",
+                "ផ្ដល់យោបល់",
+                "ផ្ដល់យោបល់ទៅកាន់សាលា",
+                "យោបល់",
+                "យោបល់ទៅកាន់សាលា",
+                "មតិយោបល់",
+                "មតិយោបល់ទៅកាន់សាលា",
+                "ផ្ដល់មតិយោបល់",
+                "ផ្ដល់មតិយោបល់ទៅកាន់សាលា",
+                "ខ្ញុំចង់ផ្ដល់យោបល់",
+                "ខ្ញុំចង់ផ្ដល់មតិ",
+                "ខ្ញុំចង់ផ្ដល់មតិយោបល់",
+                "ខ្ញុំចង់ផ្ដល់មតិយោបល់ទៅកាន់សាលា",
+                "ខ្ញុំចង់ផ្ដល់យោបល់ទៅកាន់សាលា",
+                "ខ្ញុំចង់ផ្ដល់មតិទៅកាន់សាលា",
+                "ខ្ញុំចង់ផ្ដល់យោបល់ទៅកាន់សាលា",
+                "ខ្ញុំចង់ប្រាប់យោបល់",
+                "ខ្ញុំចង់ប្រាប់មតិ",
+                "ខ្ញុំចង់ប្រាប់មតិយោបល់",
+                "ខ្ញុំចង់ប្រាប់មតិយោបល់ទៅកាន់សាលា",
+                "ខ្ញុំចង់ប្រាប់យោបល់ទៅកាន់សាលា"
+
             ],
-            "responses": [
-                "I understand that you want to send a feedback to the school. Are you sure to continue?"
-            ],
+            "responses": {
+                "en": [
+                    "I understand that you want to send a feedback to the school. Are you sure to continue?"
+                ],
+                "km": [
+                    "ខ្ញុំយល់ថាអ្នកចង់ផ្ដល់មតិយោបល់ទៅកាន់សាលា។ តើអ្នកពិតជាចង់បន្តមែនឬទេ?"
+                ]
+            },
             "context_set": "send_feedback",
             "context_drop": "send_feedback"
+        },
+        {
+            "tag": "fee",
+            "patterns": [
+                "How much do I pay for tuition",
+                "How much tuition fee",
+                "How much is the tuition fee",
+                "How much is the tuition",
+                "How much is the tuition fee for the Bachelor of Computer Science",
+                "How much is the tuition fee for the Bachelor of E-Commerce",
+                "How much is the tuition fee for the Bachelor of Telecoms and Networking",
+                "Is there any scholarship",
+                "Is there any scholarship for the Bachelor of Computer Science",
+                "Is there any scholarship for the Bachelor of E-Commerce",
+                "Is there any scholarship for the Bachelor of Telecoms and Networking",
+                "បង់លុយប៉ុន្មាន",
+                "មានបង់លុយប៉ុន្មាន",
+                "អស់លុយអត់",
+                "មានបង់លុយទេ",
+                "តើមានបង់លុយអត់",
+                "តើត្រូវការបង់លុយប៉ុន្មាន",
+                "តើមានអាហារូបករណ៍អត់",
+                "មានអាហារូបករណ៍អត់",
+                "មានអាហារូបករណ៍ទេ",
+                "មានអាហារូបករណ៍អីខ្លះ",
+                "មានអាហារូបករណ៍អ្វីខ្លះ",
+                "តើមានអាហារូបករណ៍អ្វីខ្លះ",
+                "មាន scholarship អត់",
+                "បង់ថ្លៃសិក្សា",
+                "បង់ថ្លៃសិក្សាប៉ុន្មាន",
+                "តើត្រូវបង់ថ្លៃសិក្សាប៉ុន្មាន",
+                "តើត្រូវបង់ថ្លៃសិក្សាឬអត់",
+                "តើត្រូវបង់ថ្លៃសិក្សាឬទេ"
+            ],
+            "responses": {
+                "en": [
+                    "The tuition fee for the all programs in the IDT is $2,500 per year.\nWe also provide two types of scholarships:\n    - Techo Digital Talents Scholarship providing 100% tuition fee waiver for 100 students\n    - Technological Studies Support Package providing up to 70% tuition fee waiver for 100 students\n\nMore info about the scholarships can be found at https://idt.edu.kh/scholarship/"
+                ],
+                "km": [
+                    "ការបង់ថ្លៃសិក្សាសម្រាប់គ្រប់កម្មវិធីសិក្សាថ្នាក់បរិញ្ញាបត្រនៃវិទ្យាស្ថានបច្ចេកវិទ្យាឌីជីថលគឺ $2,500 ដុល្លារក្នុងមួយឆ្នាំ។\nយើងផ្តល់អាហារូបករណ៍ពីរប្រភេទគឺ៖\n    - អាហារូបករណ៍ទេពកោសល្យឌីជីថលតេជោ ដែលផ្ដល់នូវអាហារូបករណ៍ ១០០% ចំពោះសិស្ស ១០០ នាក់\n    - កញ្ចប់ឧបត្ថម្ភថ្លៃសិក្សាបច្ចេកវិទ្យា ផ្ដល់នូវអាហារូបករណ៍រហូតដល់ ៧០% រយៈពេល៤ឆ្នាំ ចំពោះសិស្ស ១០០ នាក់\n\nព័ត៌មានលំអិតអំពីអាហារូបករណ៍អាចត្រូវបានរកឃើញនៅទីនេះ https://idt.edu.kh/scholarship/"
+                ]
+            }
+        },
+        {
+            "tag": "language",
+            "patterns": [
+                "What language do you speak",
+                "What language do you use in CADT",
+                "Do we use English in CADT",
+                "Do we use Khmer in CADT",
+                "Do we use English in the school",
+                "Do we use Khmer in the school",
+                "តើគេប្រើភាសាអ្វីនៅក្នុងសាលា",
+                "តើគេប្រើភាសាអង់គ្លេសឬខ្មែរនៅក្នុងសាលា",
+                "តើគេប្រើភាសាអង់គ្លេសឬខ្មែរនៅក្នុងវិទ្យាស្ថាន",
+                "តើគេនិយាយភាសាអង់គ្លេសឬខ្មែរនៅក្នុងវិទ្យាស្ថាន",
+                "តើគេនិយាយភាសាអង់គ្លេសឬខ្មែរនៅក្នុងសាលា",
+                "តើគេនិយាយភាសាអ្វីនៅក្នុងសាលា",
+                "តើគេនិយាយភាសាអ្វីនៅក្នុងវិទ្យាស្ថាន"
+            ],
+            "responses": {
+                "en": [
+                    "We have shifted to using English as the main language of instruction in the school. However, we still sometimes use Khmer to communicate with students that are not fluent in English."
+                ],
+                "km": [
+                    "យើងបានផ្លាស់ប្តូរទៅការប្រើភាសាអង់គ្លេសជាភាសាចម្បងសម្រាប់ការបង្រៀននៅក្នុងសាលានេះ។ ទោះបីជាយ៉ាងណាក៏ដោយ យើងនៅតែជួនកាលប្រើភាសាខ្មែរដើម្បីជាជំនួយដល់សិស្សដែលមិនចេះភាសាអង់គ្លេស។"
+                ]
+            }
         }
     ],
     "default_intent": {
         "tag": "noanswer",
         "patterns": [""],
-        "responses": [
-            "I'm sorry, I don't understand. Please ask me another question.",
-            "I'm not sure I understood that. Please ask me another question."
-        ]
+        "responses": {
+            "en": [
+                "I'm sorry, I don't understand. Please ask me another question.",
+                "I'm not sure I understood that. Please ask me another question."
+            ],
+            "km": [
+                "សូមអភ័យទោស ខ្ញុំមិនយល់អំពីសំណួរនេះទេ។ សូមសួរសំណួរផ្សេងទៀត។",
+                "ខ្ញុំមិនយល់អំពីសំណួរនេះទេ។ សូមសួរសំណួរផ្សេងទៀត។",
+                "សូមអធ្យាស័យផង ខ្ញុំមិនយល់អំពីសំណួរនេះទេ។ សូមសួរសំណួរផ្សេងទៀត។"
+            ]
+        }
     }
 }
