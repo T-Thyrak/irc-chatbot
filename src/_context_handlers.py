@@ -24,7 +24,7 @@ with open('misc/survey_data/rules.json', 'r') as f:
     
 scores = {}
 
-def handle_course_recommendation(sender_psid: str, sentence: str, access_token: str | None=None, telegram: bool=False, telegram_data: dict | None=None) -> tuple[str, bool]:
+def handle_course_recommendation(sender_psid: str, sentence: str, access_token: str | None=None, telegram: bool=False, telegram_data: dict | None=None, lang: str='en') -> tuple[str, bool]:
     # some codes
     
     def add_score(input_score: dict, option: int, section: str):
@@ -153,7 +153,7 @@ def handle_course_recommendation(sender_psid: str, sentence: str, access_token: 
     del scores[sender_psid]
     return f"Alright, I have calculated the scores, and the course that I recommend is: {fullname}!\n\nBTW, here's your score for each course:\nCS: {score['cs']}\nTN: {score['tn']}\nEC: {score['ec']}", True
 
-def handle_request_human(sender_psid: str, sentence: str, access_token: str | None=None, telegram: bool=False, telegram_data: dict | None=None) -> tuple[str, bool]:
+def handle_request_human(sender_psid: str, sentence: str, access_token: str | None=None, telegram: bool=False, telegram_data: dict | None=None, lang: str='en') -> tuple[str, bool]:
     if UserIterations.get(sender_psid) is None:
         UserIterations.inc(sender_psid)
         
@@ -175,7 +175,7 @@ def handle_request_human(sender_psid: str, sentence: str, access_token: str | No
         
     return "", True
 
-def handle_send_feedback(sender_psid: str, sentence: str, access_token: str | None=None, telegram: bool=False, telegram_data: dict | None=None) -> tuple[str, bool]:
+def handle_send_feedback(sender_psid: str, sentence: str, access_token: str | None=None, telegram: bool=False, telegram_data: dict | None=None, lang: str='en') -> tuple[str, bool]:
     if not hasattr(handle_send_feedback, 'feedback_type'):
         handle_send_feedback.feedback_type = None
         

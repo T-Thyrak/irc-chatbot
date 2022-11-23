@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify, render_template, url_for
 from flask_cors import CORS
 from keras.models import Model, load_model
 from dotenv import load_dotenv
+from polyglot.detect import Detector
 
 from src.shared_message_queue import put_message_client
 from src.ext.prompt_group import PromptGroup
@@ -16,6 +17,12 @@ from src.tasks import notifyTelegram
 from src.wrappers import UserIterations, ExpiringDict
 
 from src.classify import classify
+
+
+SUPPORTED_LANGUAGES = (
+    'en',
+    'km'
+)
 
 
 app = Flask(__name__)
@@ -80,20 +87,22 @@ def chat_v2_post():
                     response = {}
                     
                     if contexts.get(sender_psid) is None:
-                        results = classify(model, message, words, classes)
+                        results, lang = classify(model, message, words, classes)
+                        if lang not in SUPPORTED_LANGUAGES:
+                            lang = 'en'
                         
                         if results == []:
-                            response['text'] = random.choice(intents['default_intent']['responses'])
+                            response['text'] = random.choice(intents['default_intent']['responses'][lang])
                         else:
                             for intent in intents['intents']:
                                 if intent['tag'] == results[0][0]:
                                     if 'context_filter' in intent:
                                         if contexts.get(sender_psid) == intent['context_filter']:
-                                            response['text'] = random.choice(intent['responses'])
+                                            response['text'] = random.choice(intent['responses'][lang])
                                             if 'context_set' in intent:
                                                 contexts[sender_psid] = intent['context_set']
                                     else:
-                                        response['text'] = random.choice(intent['responses'])
+                                        response['text'] = random.choice(intent['responses'][lang])
                                         if 'context_set' in intent:
                                             contexts[sender_psid] = intent['context_set']
                                     
@@ -105,7 +114,12 @@ def chat_v2_post():
                             context = contexts[sender_psid]
                             handler = context_handlers[context]
                             
-                            response['text'], context_should_drop = handler(sender_psid, message, os.getenv('PAGE_ACCESS_TOKEN'))
+                            try:
+                                lang = Detector(message, quiet=True).language.code
+                            except Exception as e:
+                                lang = 'en'
+                            
+                            response['text'], context_should_drop = handler(sender_psid, message, os.getenv('PAGE_ACCESS_TOKEN'), lang=lang)
                             
                             if context_should_drop:
                                 print(f"Dropping context for {sender_psid}: {context}")
@@ -133,22 +147,24 @@ def chat_v2t():
         
         response = {}
         if contexts.get(xsender_id) is None:
-            results = classify(model, sentence, words, classes)
+            results, lang = classify(model, sentence, words, classes)
+            if lang not in SUPPORTED_LANGUAGES:
+                lang = 'en'
             
             if results == []:
-                response['text'] = random.choice(intents['default_intent']['responses'])
+                response['text'] = random.choice(intents['default_intent']['responses'][lang])
             
             else:
                 for intent in intents['intents']:
                     if intent['tag'] == results[0][0]:
                         if 'context_filter' in intent:
                             if contexts.get(xsender_id) == intent['context_filter']:
-                                response['text'] = random.choice(intent['responses'])
+                                response['text'] = random.choice(intent['responses'][lang])
                                 if 'context_set' in intent:
                                     contexts[xsender_id] = intent['context_set']
                         
                         else:
-                            response['text'] = random.choice(intent['responses'])
+                            response['text'] = random.choice(intent['responses'][lang])
                             if 'context_set' in intent:
                                 contexts[xsender_id] = intent['context_set']
                         
@@ -165,12 +181,18 @@ def chat_v2t():
                     'last_name': body['last_name'],
                 }
                 
-                response['text'], context_should_drop = handler(xsender_id, sentence, telegram=True, telegram_data=data)
+                try:
+                    lang = Detector(sentence, quiet=True).language.code
+                except Exception as e:
+                    lang = 'en'
+                
+                response['text'], context_should_drop = handler(xsender_id, sentence, telegram=True, telegram_data=data, lang=lang)
                 
                 if context_should_drop:
                     print(f"Dropping context for {xsender_id}: {context}")
                     contexts.pop(xsender_id)
     except KeyError as e:
+        e.printStackTrace()
         return jsonify({'error': 'invalid request', 'message': 'missing keys'}), 400
     except Exception as e:
         e.printStackTrace()
@@ -189,7 +211,7 @@ def chat():
     print(request.json)
     
     if contexts.get(request.json['uid']) is None:
-        results = classify(model, sentence, words, classes, threshold=0.75)
+        results, lang = classify(model, sentence, words, classes, threshold=0.75)
     
         response = {}
         

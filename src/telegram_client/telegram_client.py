@@ -57,30 +57,6 @@ def menu_keyboard() -> InlineKeyboardMarkup:
     keyboard = [[InlineKeyboardButton(prompt_group.name, callback_data=prompt_group.label)] for prompt_group in prompts]
     return InlineKeyboardMarkup(keyboard)
 
-def greetings(update: Update, context: CallbackContext) -> None:
-    query = update.callback_query
-    query.answer()
-    
-    random_greetings = ["Hi", "Hello", "Hey", "Hi there", "Hello there", "Hey there"]
-    sent = random.choice(random_greetings)
-    r = requests.post(f"http://localhost:{os.getenv('PORT')}/api/v2t/chat", json={"sentence": sent, 'first_name': update.effective_user.first_name, 'last_name': update.effective_user.last_name, 'sender_id': encode(update.effective_user.id)})
-
-    query.edit_message_text(
-        text=f"Prompt: `{sent}`\n\n" + r.json()['text']
-    )
-    
-def basic_info(update: Update, context: CallbackContext) -> None:
-    query = update.callback_query
-    query.answer()
-    
-    random_basic_info = ["What is CADT?", "What are the courses offered?", "What are the facilities offered?", "What is the address of CADT?", "What is the contact number of CADT?"]
-    sent = random.choice(random_basic_info)
-    r = requests.post(f"http://localhost:{os.getenv('PORT', 8080)}/api/v2t/chat", json={"sentence": sent, 'first_name': update.effective_user.first_name, 'last_name': update.effective_user.last_name, 'sender_id': encode(update.effective_user.id)})
-
-    query.edit_message_text(
-        text=f"Prompt: `{sent}`\n" + r.json()['text']
-    )
-    
 def chat(update: Update, context: CallbackContext) -> None:
     forward_user = dual_map.get(encode(update.effective_user.id))
     if forward_user:
@@ -117,8 +93,6 @@ def main() -> None:
     updater.dispatcher.add_handler(CommandHandler("start", start))
     updater.dispatcher.add_handler(CommandHandler("menu", menu))
     updater.dispatcher.add_handler(CommandHandler("help", help))
-    # updater.dispatcher.add_handler(CallbackQueryHandler(greetings, pattern="greetings"))
-    # updater.dispatcher.add_handler(CallbackQueryHandler(basic_info, pattern="basic_info"))
     
     for prompt_group in prompts:
         updater.dispatcher.add_handler(CallbackQueryHandler(dyn_func(prompt_group, updater), pattern=prompt_group.label))

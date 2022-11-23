@@ -3,6 +3,9 @@ from src.helper import stemmer
 
 import nltk
 import numpy as np
+import khmernltk
+
+from polyglot.detect import Detector
 
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
@@ -29,7 +32,13 @@ def main():
         
         for intent in intents['intents']:
             for pattern in intent['patterns']:
-                word = nltk.word_tokenize(pattern)
+                lang = Detector(pattern).language.code
+                
+                if lang == 'km':
+                    word = khmernltk.word_tokenize(pattern)
+                else:
+                    word = nltk.word_tokenize(pattern)
+                    
                 words.extend(word)
                 documents.append((word, intent['tag']))
                 if intent['tag'] not in classes:
@@ -67,9 +76,9 @@ def main():
     train_y = list(training[:, 1])
     
     model = Sequential([
-        Dense(128, input_shape=(len(train_x[0]),), activation='relu'),
+        Dense(256, input_shape=(len(train_x[0]),), activation='relu'),
         Dropout(0.5),
-        Dense(64, activation='relu'),
+        Dense(128, activation='relu'),
         Dropout(0.5),
         Dense(len(train_y[0]), activation='softmax')
     ])
