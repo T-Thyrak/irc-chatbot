@@ -11,13 +11,15 @@ from polyglot.detect import Detector
 
 from src.shared_message_queue import put_message_client
 from src.ext.prompt_group import PromptGroup
-from src.helper import context_handlers, handle_message, xor, verify_hash, shutdown_server
+from src.helper import context_handlers, handle_message, xor, verify_hash, shutdown_server, get_user_data, log_message
 from src.service import call_sender_API
 from src.tasks import notifyTelegram
 from src.wrappers import UserIterations, ExpiringDict
 
 from src.classify import classify
+from src.mysqlquery import *
 
+from time import time
 
 SUPPORTED_LANGUAGES = (
     'en',
@@ -91,6 +93,10 @@ def chat_v2_post():
                         if lang not in SUPPORTED_LANGUAGES:
                             lang = 'en'
                         
+                        userdata = get_user_data(sender_psid, os.getenv('PAGE_ACCESS_TOKEN'))
+                        username = f"{userdata['first_name']} {userdata['last_name']}"
+                        log_message(sender_psid, username, message, lang)
+                        
                         if results == []:
                             response['text'] = random.choice(intents['default_intent']['responses'][lang])
                         else:
@@ -148,8 +154,12 @@ def chat_v2t():
         response = {}
         if contexts.get(xsender_id) is None:
             results, lang = classify(model, sentence, words, classes)
+            
             if lang not in SUPPORTED_LANGUAGES:
                 lang = 'en'
+                
+            username = f"{body['first_name']} {body['last_name']}"
+            log_message(xsender_id, username, sentence, lang)
             
             if results == []:
                 response['text'] = random.choice(intents['default_intent']['responses'][lang])
@@ -169,7 +179,6 @@ def chat_v2t():
                                 contexts[xsender_id] = intent['context_set']
                         
                         break
-                    
         else:
             if contexts.get(xsender_id) == 'request_human' and UserIterations.get(xsender_id) is not None:
                 return jsonify({'error': 'locked'}), 403

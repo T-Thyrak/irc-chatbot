@@ -1,13 +1,13 @@
 import nltk
 import khmernltk
+import pandas as pd
+import numpy as np
 
+from time import time
 from polyglot.detect import Detector
 
 from nltk.stem.lancaster import LancasterStemmer
 stemmer = LancasterStemmer()
-
-import pandas as pd
-import numpy as np
 
 from keras.models import Model
 
@@ -59,8 +59,11 @@ def classify(model: Model, sentence: str, words: list[str], classes: list[str], 
         tuple[list[tuple[str, str]], str]: The list of (intent, confidence) and the primary language of the sentence.
     """
     bag_of_words, lang = bow(sentence, words)
+
     input_data = pd.DataFrame([bag_of_words], dtype=float, index=['input'])
-    results = model.predict([input_data])[0]
+    # results = model.predict([input_data])[0]
+    results = model.__call__(np.array(input_data))[0]
+    
     results = [[i, r] for i, r in enumerate(results) if r > threshold]
     results.sort(key=lambda x: x[1], reverse=True)
     return_list = []

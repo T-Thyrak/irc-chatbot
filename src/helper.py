@@ -1,15 +1,14 @@
-from hashlib import sha512
-from multiprocessing import Queue
 import string
-from time import time
-# from filelock import FileLock
 import expiringdict
 
-from nltk.stem.lancaster import LancasterStemmer
+from hashlib import sha512
+from multiprocessing import Queue
+from time import time
 
-from src.wrappers import TTLDurations
+from nltk.stem.lancaster import LancasterStemmer
 stemmer = LancasterStemmer()
 
+from src.wrappers import TTLDurations
 from src._context_handlers import *
 
 context_handlers = {
@@ -106,3 +105,20 @@ def encode(id: int) -> str:
 
 def decode(id: str) -> int:
     return int(id[:-3])
+
+def get_user_data(sender_psid: str, access_token: str):
+    url = f"https://graph.facebook.com/v2.6/{sender_psid}?fields=first_name,last_name&access_token={access_token}"
+    r = requests.get(url)
+    data = r.json()
+    
+    return data
+
+def log_message(sender_psid: str, username: str, message: str, lang: str):
+    db_conn = create_connection()
+    start_commit(db_conn)
+    
+    query = "INSERT INTO `logs` (`sender_id`, `name`, `message`, `lang`) VALUES (%s, %s, %s, %s)"
+    execute_query(query, db_conn, (sender_psid, username, message, lang))
+    
+    end_commit(db_conn)
+    destroy_connection(db_conn)
