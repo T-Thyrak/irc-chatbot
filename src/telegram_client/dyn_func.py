@@ -14,6 +14,8 @@ def dyn_func(prompt_group: PromptGroup, updater: Updater) -> Callable[[Update, C
         query = update.callback_query
         query.answer()
         
+        query.edit_message_text(text=f"Sending message/កំពុងផ្ញើសារ...")
+        
         choices = prompt_group.prompts
         sentence = random.choice(choices)
         

@@ -23,16 +23,28 @@ user_to_op_map = ExpiringDict(max_len=MAX_LEN, max_age_seconds=60*30)
 
 dual_map = DualMap()
 
-prompts = [
-    PromptGroup('Greetings', 'greetings', [
+prompts_en = [
+    PromptGroup('Greetings', 'greetings_en', [
         "Hello",
         "Hi there",
         "How are you doing",
     ]),
-    PromptGroup('Basic Info', 'basic_info', [
+    PromptGroup('Basic Info', 'basic_info_en', [
         "What is CADT?",
         "What is the purpose of CADT?",
         "What is the purpose of this chatbot?",
+    ]),
+]
+
+prompts_km = [
+    PromptGroup('សួស្តី', 'greetings_km', [
+        "សួស្តី",
+        "សួស្តីអ្នក",
+    ]),
+    PromptGroup('ព័ត៌មានមូលដ្ឋាន', 'basic_info_km', [
+        "តើ CADT គឺជាអ្វី?",
+        "តើគោលបំណងនៃ CADT គឺជាអ្វី?",
+        "តើគោលបំណងនៃកម្មវិធីនេះគឺជាអ្វី?",
     ]),
 ]
 
@@ -44,6 +56,12 @@ def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("""Hi! I am an information and recommendation chatbot for CADT.
 I can answer questions about the institute, its courses, and its facilities.
 To get started, type `/menu` to see the list of intents that I can recognize.
+Note: All messages are logged.
+
+ជម្រាបសួរ! ខ្ញុំជាកម្មវិធីសន្ទនាដើម្បីផ្ដល់ព័ត៌មានផ្សេងៗ និងជំនួយប្រាប់ទិស របស់ CADT។
+ខ្ញុំអាចឆ្លើយនូវសំណួរអំពីស្ថាប័ន វគ្គសិក្សា និងសេវាកម្មរបស់យើង។
+ដើម្បីចាប់ផ្តើម សូមបញ្ចូល `/menu` ដើម្បីមើលបញ្ជីនៃសំណួរដែលខ្ញុំអាចស្គាល់។
+ចំណាំ: សារទាំងអស់គឺត្រូវបានកត់ត្រាទុក។
 """)
     
     
@@ -51,11 +69,42 @@ def menu(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(text=menu_message(), reply_markup=menu_keyboard())
     
 def menu_message() -> str:
-    return "Please select an intent from the list below. This will send a random prompt of the corresponding intent.\nRemember, you can also just type your question in the chatbox too."
+    return """Please select an intent from the list below. This will send a random prompt of the corresponding intent.
+Remember, you can also just type your question in the chatbox too.
+
+ចូរអ្នករើសយកប្រភេទសំណួរណាមួយពីក្នុងបញ្ជីខាងក្រោម។ វានឹងផ្ញើសំណួរមួយដែលត្រូវនឹងប្រភេទសំណួរនេះ។
+ចំណាំ: អ្នកក៏អាចបញ្ចូលសំណួររបស់អ្នកនៅក្នុងប្រអប់សារបានផងដែរ។
+"""
 
 def menu_keyboard() -> InlineKeyboardMarkup:
-    keyboard = [[InlineKeyboardButton(prompt_group.name, callback_data=prompt_group.label)] for prompt_group in prompts]
+    keyboard = [[InlineKeyboardButton("English", callback_data='menu_en')],
+                [InlineKeyboardButton("Khmer", callback_data='menu_km')]]
     return InlineKeyboardMarkup(keyboard)
+
+def menu_en_message():
+    return """Please select an intent from the list below. This will send a random prompt of the corresponding intent."""
+
+def menu_en_keyboard():
+    keyboard = [[InlineKeyboardButton(prompt_group.name, callback_data=prompt_group.label)] for prompt_group in prompts_en]
+    return InlineKeyboardMarkup(keyboard)
+    
+def menu_en(update: Update, context: CallbackContext) -> None:
+    query = update.callback_query
+    query.answer()
+    
+    query.edit_message_text(text=menu_en_message(), reply_markup=menu_en_keyboard())
+
+def menu_km_message():
+    return """ចូរអ្នករើសយកប្រភេទសំណួរណាមួយពីក្នុងបញ្ជីខាងក្រោម។ វានឹងផ្ញើសំណួរមួយដែលត្រូវនឹងប្រភេទសំណួរនេះ។"""
+
+def menu_km_keyboard():
+    keyboard = [[InlineKeyboardButton(prompt_group.name, callback_data=prompt_group.label)] for prompt_group in prompts_km]
+    return InlineKeyboardMarkup(keyboard)
+def menu_km(update: Update, context: CallbackContext) -> None:
+    query = update.callback_query
+    query.answer()
+    
+    query.edit_message_text(text=menu_km_message(), reply_markup=menu_km_keyboard())
 
 def chat(update: Update, context: CallbackContext) -> None:
     forward_user = dual_map.get(encode(update.effective_user.id))
@@ -82,11 +131,21 @@ You can also just type your question in the chatbox too.
 I will try to answer it as best as I can.
 Example: What can you do?
 Answer: I can answer questions about the institute, its courses, and its facilities.
+
+បញ្ជីនៃពាក្យបញ្ជា:
+/start - ចាប់ផ្ដើមការប្រើប្រាស់ bot
+/menu - បង្ហាញបញ្ជីនៃប្រភេទសំណួរដែលខ្ញុំអាចស្គាល់
+/help - បង្ហាញសារនេះ
+
+អ្នកក៏អាចបញ្ចូលសំណួររបស់អ្នកនៅក្នុងប្រអប់សារបានផងដែរ។
+ខ្ញុំនឹងព្យាយាមឆ្លើយតបឱ្យអស់នឹងសមត្ថភាព។
+ឧទាហរណ៍: តើអ្នកអាចធ្វើអ្វីបាន?
+ចម្លើយ: ខ្ញុំអាចឆ្លើយសំណួរអំពីវិទ្យាស្ថាន វគ្គសិក្សារបស់វានិងសេវាកម្មរបស់យើងបាន។
 """)
 
 def terminate() -> None:
     global dont_die
-    dont_die = False
+    dont_die = False    
 
 def main() -> None:
     updater = Updater(token=os.getenv("TELEGRAM_CLIENT_ACCESS_TOKEN"), use_context=True)
@@ -94,9 +153,15 @@ def main() -> None:
     updater.dispatcher.add_handler(CommandHandler("menu", menu))
     updater.dispatcher.add_handler(CommandHandler("help", help))
     
-    for prompt_group in prompts:
+    updater.dispatcher.add_handler(CallbackQueryHandler(menu_en, pattern='^menu_en$'))
+    updater.dispatcher.add_handler(CallbackQueryHandler(menu_km, pattern='^menu_km$'))
+    
+    for prompt_group in prompts_en:
         updater.dispatcher.add_handler(CallbackQueryHandler(dyn_func(prompt_group, updater), pattern=prompt_group.label))
     
+    for prompt_group in prompts_km:
+        updater.dispatcher.add_handler(CallbackQueryHandler(dyn_func(prompt_group, updater), pattern=prompt_group.label))
+
     updater.dispatcher.add_handler(MessageHandler(Filters.text & (~Filters.command), chat))
     
     updater.dispatcher.bot.set_my_commands([

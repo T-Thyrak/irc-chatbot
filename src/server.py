@@ -3,6 +3,9 @@ import pickle
 import json
 import random
 
+from rich.console import Console
+console = Console()
+
 from flask import Flask, request, jsonify, render_template, url_for
 from flask_cors import CORS
 from keras.models import Model, load_model
@@ -132,8 +135,8 @@ def chat_v2_post():
                                 contexts.pop(sender_psid)
                         
                     call_sender_API(sender_psid, response, os.getenv('PAGE_ACCESS_TOKEN'))
-        except Exception as e:
-            e.printStackTrace()
+        except Exception:
+            console.print_exception(show_locals=True)
         finally: 
             return "EVENT_RECEIVED", 200
     return "404 Not Found", 404
@@ -201,10 +204,11 @@ def chat_v2t():
                     print(f"Dropping context for {xsender_id}: {context}")
                     contexts.pop(xsender_id)
     except KeyError as e:
-        e.printStackTrace()
+        console.print_exception(show_locals=True)
         return jsonify({'error': 'invalid request', 'message': 'missing keys'}), 400
     except Exception as e:
-        e.printStackTrace()
+        console.print_exception(show_locals=True)
+
         return jsonify({'error': 'internal server error'}), 500
     
     return jsonify(response), 200

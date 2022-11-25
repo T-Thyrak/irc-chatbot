@@ -23,15 +23,15 @@
             ],
             "responses": {
                 "en": [
-                    "Hello there, thanks for asking. Please type 'What can you do?' for things that I can do.",
-                    "Hi there, Please type 'What can you do?' for things that I can do.",
-                    "Hello, Please type 'What can you do?' for things that I can do.",
-                    "Greetings, Please type 'What can you do?' for things that I can do."
+                    "Hello there, thanks for asking. Please type 'What can you do?' for things that I can do.\n\nNote that all messages are logged.",
+                    "Hi there, Please type 'What can you do?' for things that I can do.\n\nNote that all messages are logged.",
+                    "Hello, Please type 'What can you do?' for things that I can do.\n\nNote that all messages are logged.",
+                    "Greetings, Please type 'What can you do?' for things that I can do.\n\nNote that all messages are logged."
                 ],
                 "km": [
-                    "បាទសូមជម្រាបសួរ! សូមបញ្ជូលពាក្យថា តើអ្នកអាចធ្វីអ្វីបានខ្លះ? សម្រាប់បង្ហាញនូវសេវាកម្មរបស់ខ្ញុំ",
-                    "សូមបញ្ជូលពាក្យថា តើអ្នកអាចធ្វីអ្វីបានខ្លះ? សម្រាប់បង្ហាញនូវសេវាកម្មរបស់ខ្ញុំ",
-                    "សួស្តីបាទ! សូមបញ្ជូលពាក្យថា តើអ្នកអាចធ្វីអ្វីបានខ្លះ? សម្រាប់បង្ហាញនូវសេវាកម្មរបស់ខ្ញុំ"
+                    "បាទសូមជម្រាបសួរ! សូមបញ្ជូលពាក្យថា តើអ្នកអាចធ្វីអ្វីបានខ្លះ? សម្រាប់បង្ហាញនូវសេវាកម្មរបស់ខ្ញុំ។\n\nម្យ៉ាងទៀត ខ្ញុំក៏សូមជម្រាបថា រាល់សារទាំងអស់គឺត្រូវបានកត់ត្រាទុក។",
+                    "សូមបញ្ជូលពាក្យថា តើអ្នកអាចធ្វីអ្វីបានខ្លះ? សម្រាប់បង្ហាញនូវសេវាកម្មរបស់ខ្ញុំ។\n\nម្យ៉ាងទៀត ខ្ញុំក៏សូមជម្រាបថា រាល់សារទាំងអស់គឺត្រូវបានកត់ត្រាទុក។",
+                    "សួស្តីបាទ! សូមបញ្ជូលពាក្យថា តើអ្នកអាចធ្វីអ្វីបានខ្លះ? សម្រាប់បង្ហាញនូវសេវាកម្មរបស់ខ្ញុំ។\n\nម្យ៉ាងទៀត ខ្ញុំក៏សូមជម្រាបថា រាល់សារទាំងអស់គឺត្រូវបានកត់ត្រាទុក"
                 ]
             }
         },

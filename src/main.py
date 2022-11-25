@@ -1,3 +1,7 @@
+from rich.traceback import install
+install(show_locals=True)
+
+
 from multiprocessing.dummy import Process
 from src.server import app
 from src.telebot.telebot import init, terminate, run

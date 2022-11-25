@@ -25,7 +25,7 @@ def main():
     words = []
     classes = []
     documents = []
-    ignore_words = ['?']
+    ignore_words = ['?', ' ', '!', ',', '.', '​']
     
     with open('misc/intents.json') as json_data:
         intents = json.load(json_data)
