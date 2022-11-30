@@ -46,8 +46,14 @@ venv\Scripts\activate # this line for Windows
 ```
 
 ## Step 4. Install the dependencies
+On windows, use:
 ```bash
 pip install -r requirements.txt
+```
+
+And for Linux, use:
+```bash
+pip install -r requirements-linux.txt
 ```
 
 ## Step 5. Build the model
