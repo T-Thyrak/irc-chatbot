@@ -3,6 +3,9 @@ from typing import Any
 import mysql.connector
 from dotenv import load_dotenv
 
+from rich.console import Console
+console = Console()
+
 load_dotenv()
 
 def create_connection() -> mysql.connector.MySQLConnection:
@@ -17,7 +20,8 @@ def create_connection() -> mysql.connector.MySQLConnection:
     except mysql.connector.errors.DatabaseError:
         db_conn = None
         print("\033[91m[ERROR]\033[0m Could not connect to database.")
-    
+        console.print_exception()
+        
     return db_conn
 
 def start_commit(db_conn: mysql.connector.MySQLConnection) -> None:

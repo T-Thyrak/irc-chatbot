@@ -1,6 +1,3 @@
-from src.helper import stemmer
-
-
 import nltk
 import numpy as np
 
@@ -12,6 +9,9 @@ import pickle
 import random
 import os
 
+
+
+stemmer = nltk.LancasterStemmer()
 
 TARGET = 'yesno'
 
