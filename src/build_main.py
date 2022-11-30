@@ -1,6 +1,3 @@
-from src.helper import stemmer
-
-
 import nltk
 import numpy as np
 import khmernltk
@@ -17,6 +14,8 @@ import random
 import json
 import os
 
+
+stemmer = nltk.LancasterStemmer()
 
 TARGET = 'chatbot'
 

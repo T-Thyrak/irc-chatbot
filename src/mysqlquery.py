@@ -19,8 +19,8 @@ def create_connection() -> mysql.connector.MySQLConnection:
         )
     except mysql.connector.errors.DatabaseError:
         db_conn = None
-        console.print_exception(show_locals=True)
-    
+        print("\033[91m[ERROR]\033[0m Could not connect to database.")
+        console.print_exception()
     return db_conn
 
 def start_commit(db_conn: mysql.connector.MySQLConnection) -> None:

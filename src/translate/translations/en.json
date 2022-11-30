@@ -1,0 +1,37 @@
+{
+    "hello": "world",
+    "nested": {
+        "foo": "bar"
+    },
+    "choice": {
+        "respect": "I see. I will respect your choice."
+    },
+    "questions": {
+        "enter": "Please enter a number between {range_min} and {range_max}",
+        "~coding": "Alright. Let's start with the first question. On the scale of 1-5, how much do you like coding?",
+        "~marketing": "On the scale of 1-5, how much do you like marketing?",
+        "~networking": "On the scale of 1-5, how much do like networking (BGP, managing routers, ...)?",
+        "~solve_problems": "On the scale of 1-5, how much do you like solving problems?",
+        "~math": "On the scale of 1-5, how much do you like math?",
+        "~physics": "On the scale of 1-5, how much do you like physics?",
+        "~soft_skills": "On the scale of 1-5, how much do you like soft skills (communication, ...)?",
+        "~create_software": "On the scale of 1-5, how much do you like creating software?",
+        "~create_content": "On the scale of 1-5, how much do you like creating content (blogs, videos, posters, ...)?",
+        "~physical_networking": "On the scale of 1-5, how much do you like physical networking (cabling, hooking up servers, setting up routes...)?",
+        "!code_dev": "Choose an answer by typing the number. Do you prefer to be the code developer or the product manager when you are creating application?\n\n1. Code Developer\n2. Product Manager\n3. Either/Neither",
+        "!build_planning": "Do you prefer to plan for everything before building your project, or do you prefer to build it as you plan it out?\n\n1. Plan for everything before building\n2. Build while planning",
+        "!coding_often": "How often did you do coding?\n\n1. Rarely (< once / month)\n2. Occasionally (>= once / month)\n3. Sometimes (>= once / week)\n4. Often (daily)",
+        "score_calc": "Alright, I have calculated the scores, and the course that I recommend is: {fullname}!\n\nBTW, here's your score for each course: \nCS: {cs_score}\nEC: {ec_score}\nTN: {tn_score}"
+    },
+    "courses": {
+        "cs": "Computer Science",
+        "ec": "E-Commerce",
+        "tn": "Telecoms and Networking"
+    },
+    "request_human": {
+        "confirm": "Alright, I will connect you to a human agent. You can still talk to me in the meanwhile. :)"
+    },
+    "feedback": {
+        "type": "Alright, what type of feedback do you want to send? (Please use the number)\n\n1. Bug Report\n2. Improvement"
+    }
+}
