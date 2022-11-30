@@ -7,9 +7,10 @@ import requests
 import logging
 import json
 
-from keras.models import load_model
+from keras.models import load_model, Model
 from src.classify import classify
 from src.tasks import notifyTelegram
+from src.translate.tr import __
 
 with open('misc/yesno/words.pkl', 'rb') as f:
     words = pickle.load(f)
@@ -17,7 +18,7 @@ with open('misc/yesno/classes.pkl', 'rb') as f:
     classes = pickle.load(f)
     
 load_path = os.path.join('models', 'yesno')
-yesno_model = load_model(load_path)
+yesno_model: Model = load_model(load_path)  # type: ignore
 
 with open('misc/survey_data/rules.json', 'r') as f:
     rules = json.load(f)
@@ -28,108 +29,106 @@ def handle_course_recommendation(sender_psid: str, sentence: str, access_token: 
     # some codes
     
     def add_score(input_score: dict, option: int, section: str):
-        print(input_score['cs'], input_score['tn'], input_score['ec'])
         input_score['cs'] = input_score['cs'] + rules['data_cs'][section][str(option)]
         input_score['tn'] = input_score['tn'] + rules['data_tn'][section][str(option)]
         input_score['ec'] = input_score['ec'] + rules['data_ec'][section][str(option)]
-        print(input_score)
         
         # return input_score
     
     if UserIterations.get(sender_psid) is None:
         UserIterations.inc(sender_psid)
 
-        result = classify(yesno_model, sentence=sentence, words=words, classes=classes, threshold=0.5)
+        result, class_lang = classify(yesno_model, sentence=sentence, words=words, classes=classes, threshold=0.5)
         if result == [] or result[0][0] == 'answer.maybe' or result[0][0] == 'answer.no':
-            return "Alright. I will respect your choice.", True
+            return __('choice.respect', lang), True
         else:
             scores[sender_psid] = {'cs': 0, 'tn': 0, 'ec': 0}
-            return "Alright. Let's start with the first question. On the scale of 1-5, how much do you like coding?", False
+            return __('questions.~coding', lang), False
     else:
         if UserIterations.get(sender_psid) == 0:
             if sentence.isdigit() and int(sentence) >= 1 and int(sentence) <= 5:
                 UserIterations.inc(sender_psid)
                 add_score(scores[sender_psid], int(sentence), '~coding')
-                return "On the scale of 1-5, how much do you like marketing?", False
+                return __('questions.~marketing', lang), False
             else:
-                return "Please enter a number between 1 and 5.", False
+                return __('questions.enter', lang).format(range_min=1, range_max=5), False
         elif UserIterations.get(sender_psid) == 1:
             if sentence.isdigit() and int(sentence) >= 1 and int(sentence) <= 5:
                 UserIterations.inc(sender_psid)
                 add_score(scores[sender_psid], int(sentence), '~marketing')
-                return "On the scale of 1-5, how much do you like networking (BGP, managing routers, ...)?", False
+                return __('questions.~networking', lang), False
             else:
-                return "Please enter a number between 1 and 5.", False
+                return __('questions.enter', lang).format(range_min=1, range_max=5), False
         elif UserIterations.get(sender_psid) == 2:
             if sentence.isdigit() and int(sentence) >= 1 and int(sentence) <= 5:
                 UserIterations.inc(sender_psid)
                 add_score(scores[sender_psid], int(sentence), '~networking')
-                return "On the scale of 1-5, how much do you like solving problems?", False
+                return __('questions.~solve_problems', lang), False
             else:
-                return "Please enter a number between 1 and 5.", False
+                return __('questions.enter', lang).format(range_min=1, range_max=5), False
         elif UserIterations.get(sender_psid) == 3:
             if sentence.isdigit() and int(sentence) >= 1 and int(sentence) <= 5:
                 UserIterations.inc(sender_psid)
                 add_score(scores[sender_psid], int(sentence), '~problem solving')
-                return "On the scale of 1-5, how much do you like math?", False
+                return __('questions.~math', lang), False
             else:
-                return "Please enter a number between 1 and 5.", False
+                return __('questions.enter', lang).format(range_min=1, range_max=5), False
         elif UserIterations.get(sender_psid) == 4:
             if sentence.isdigit() and int(sentence) >= 1 and int(sentence) <= 5:
                 UserIterations.inc(sender_psid)
                 add_score(scores[sender_psid], int(sentence), '~math')
-                return "On the scale of 1-5, how much do you like physics?", False
+                return __('questions.~physics', lang), False
             else:
-                return "Please enter a number between 1 and 5.", False
+                return __('questions.enter', lang).format(range_min=1, range_max=5), False
         elif UserIterations.get(sender_psid) == 5:
             if sentence.isdigit() and int(sentence) >= 1 and int(sentence) <= 5:
                 UserIterations.inc(sender_psid)
                 add_score(scores[sender_psid], int(sentence), '~physics')
-                return "On the scale of 1-5, how much do you value soft skills?", False
+                return __('questions.~soft_skills', lang), False
             else:
-                return "Please enter a number between 1 and 5.", False
+                return __('questions.enter', lang).format(range_min=1, range_max=5), False
         elif UserIterations.get(sender_psid) == 6:
             if sentence.isdigit() and int(sentence) >= 1 and int(sentence) <= 5:
                 UserIterations.inc(sender_psid)
                 add_score(scores[sender_psid], int(sentence), '~softskill')
-                return "On the scale of 1-5, how much do you like creating software?", False
+                return __('questions.~create_software', lang), False
             else:
-                return "Please enter a number between 1 and 5.", False
+                return __('questions.enter', lang).format(range_min=1, range_max=5), False
         elif UserIterations.get(sender_psid) == 7:
             if sentence.isdigit() and int(sentence) >= 1 and int(sentence) <= 5:
                 UserIterations.inc(sender_psid)
                 add_score(scores[sender_psid], int(sentence), '~create software')
-                return "On the scale of 1-5, how much do you like content creation (making posters and such)?", False
+                return __('questions.~create_content', lang), False
             else:
-                return "Please enter a number between 1 and 5.", False
+                return __('questions.enter', lang).format(range_min=1, range_max=5), False
         elif UserIterations.get(sender_psid) == 8:
             if sentence.isdigit() and int(sentence) >= 1 and int(sentence) <= 5:
                 UserIterations.inc(sender_psid)
                 add_score(scores[sender_psid], int(sentence), '~content creation')
-                return "On the scale of 1-5, how much do you like physical networking (hooking up servers, setting up routers, ...)?", False
+                return __('questions.~physical_networking', lang), False
             else:
-                return "Please enter a number between 1 and 5.", False
+                return __('questions.enter', lang).format(range_min=1, range_max=5), False
         elif UserIterations.get(sender_psid) == 9:
             if sentence.isdigit() and int(sentence) >= 1 and int(sentence) <= 5:
                 UserIterations.inc(sender_psid)
                 add_score(scores[sender_psid], int(sentence), '~physical networking')
-                return "Choose an answer by typing the number. Do you prefer to be the code developer or the product manager when you are creating application?\n\n1. Code Developer\n2. Product Manager\n3. Either/Neither", False
+                return __('questions.!code_dev', lang), False
             else:
-                return "Please enter a number between 1 and 5.", False
+                return __('questions.enter', lang).format(range_min=1, range_max=5), False
         elif UserIterations.get(sender_psid) == 10:
             if sentence.isdigit() and int(sentence) >= 1 and int(sentence) <= 3:
                 UserIterations.inc(sender_psid)
                 add_score(scores[sender_psid], int(sentence), '!coder or manager')
-                return "Do you prefer to plan for everything before building your project, or do you prefer to build it as you plan it out?\n\n1. Plan for everything before building\n2. Build while planning", False
+                return __('questions.!build_planning', lang), False
             else:
-                return "Please enter a number between 1 and 3.", False
+                return __('questions.enter', lang).format(range_min=1, range_max=3), False
         elif UserIterations.get(sender_psid) == 11:
             if sentence.isdigit() and int(sentence) >= 1 and int(sentence) <= 2:
                 UserIterations.inc(sender_psid)
                 add_score(scores[sender_psid], int(sentence), '!build planning')
-                return "How often did you do coding?\n\n1. Rarely (< once / month)\n2. Occasionally (>= once / month)\n3. Sometimes (>= once / week)\n4. Often (daily)", False
+                return __('questions.!coding_often', lang), False
             else:
-                return "Please enter a number between 1 and 2.", False
+                return __('questions.enter', lang).format(range_min=1, range_max=2), False
         elif UserIterations.get(sender_psid) == 12:
             if sentence.isdigit() and int(sentence) >= 1 and int(sentence) <= 4:
                 UserIterations.rem(sender_psid)
@@ -140,37 +139,34 @@ def handle_course_recommendation(sender_psid: str, sentence: str, access_token: 
                 
                 entry = max_entries_sorted[0][0]
                 
-                if entry == 'cs':
-                    fullname = 'Computer Science'
-                elif entry == 'ec':
-                    fullname = 'E-Commerce'
-                elif entry == 'tn':
-                    fullname = 'Telecoms and Networking'
-                else:
-                    fullname = '??? (error)'
+                fullname = __(f'courses.{entry}', lang)
+            else:
+                return __('questions.enter', lang).format(range_min=1, range_max=4), False
+        else:
+            logging.warning('Unreacheable code was reached at: handle_course_recommendation, iteration = ' + str(UserIterations.get(sender_psid)))
+            return "Unreachable code", True
         
     score = scores[sender_psid].copy()
     del scores[sender_psid]
-    return f"Alright, I have calculated the scores, and the course that I recommend is: {fullname}!\n\nBTW, here's your score for each course:\nCS: {score['cs']}\nTN: {score['tn']}\nEC: {score['ec']}", True
+    return __('questions.score_calc', lang).format(fullname=fullname, cs_score=score['cs'], ec_score=score['ec'], tn_score=score['tn']), True
 
 def handle_request_human(sender_psid: str, sentence: str, access_token: str | None=None, telegram: bool=False, telegram_data: dict | None=None, lang: str='en') -> tuple[str, bool]:
     if UserIterations.get(sender_psid) is None:
         UserIterations.inc(sender_psid)
         
-        result = classify(yesno_model, sentence=sentence, words=words, classes=classes, threshold=0.5)
+        result, class_lang = classify(yesno_model, sentence=sentence, words=words, classes=classes, threshold=0.5)
         UserIterations.rem(sender_psid)
         if result == [] or result[0][0] == 'answer.maybe' or result[0][0] == 'answer.no':
-            return "I see, I will respect your choice. :)", True
+            return __('choice.respect', lang), True
         
         if not telegram:
             r = requests.get(f"https://graph.facebook.com/v2.6/{sender_psid}?access_token={access_token}")
             data = r.json()
-            print(data)
         else:
             data = telegram_data
         
         notifyTelegram(f"L3ID{sender_psid}MSG\nA person named {data['first_name']} {data['last_name']} with the ID {sender_psid} has requested for a human to contact them on Messenger.\n\nPlease respond back to them ASAP.")
-        return "Alright, I will connect you to a human agent. You can still talk to me in the meanwhile. :)", True
+        return __("request_human.confirm", lang), True
 
         
     return "", True
@@ -179,18 +175,16 @@ def handle_send_feedback(sender_psid: str, sentence: str, access_token: str | No
     if not hasattr(handle_send_feedback, 'feedback_type'):
         handle_send_feedback.feedback_type = None
         
-    print(UserIterations.get(sender_psid))
-    
     if UserIterations.get(sender_psid) is None:
         logging.info("Should be hit, 1st time")
         
         UserIterations.inc(sender_psid)
         
-        result = classify(yesno_model, sentence=sentence, words=words, classes=classes, threshold=0.5)
+        result, class_lang = classify(yesno_model, sentence=sentence, words=words, classes=classes, threshold=0.5)
         if result == [] or result[0][0] == 'answer.maybe' or result[0][0] == 'answer.no':
-            return "I see, I will respect your choice. :)", True
+            return __('choice.respect', lang), True
         
-        return "Alright, what type of feedback do you want to send? (Please use the number)\n\n1. Bug Report\n2. Improvement", False
+        return __('feedback.type', lang), False
 
     if UserIterations.get(sender_psid) == 0:
         logging.info("Should be hit, 2nd time")
@@ -224,14 +218,9 @@ def handle_send_feedback(sender_psid: str, sentence: str, access_token: str | No
             return "I'm sorry, I am unable to connect to the database. Please try again later.", True
         
         start_commit(db_conn)
-        print("start commit")
-        print(f"executing query: {sql % val} ")
         execute_query(query=sql, values=val, db_conn=db_conn)
-        print("executed query")
         end_commit(db_conn=db_conn)
-        print("end commit")
         destroy_connection(db_conn)
-        print("destroyed connection")
     
         return "Thank you so much for your feedback! :)", True
     

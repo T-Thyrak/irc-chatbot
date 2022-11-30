@@ -8,6 +8,7 @@ console = Console()
 
 from flask import Flask, request, jsonify, render_template, url_for
 from flask_cors import CORS
+
 from keras.models import Model, load_model
 from dotenv import load_dotenv
 from polyglot.detect import Detector
@@ -22,8 +23,6 @@ from src.wrappers import UserIterations, ExpiringDict
 from src.classify import classify
 from src.mysqlquery import *
 
-from time import time
-
 SUPPORTED_LANGUAGES = (
     'en',
     'km'
@@ -37,6 +36,11 @@ CORS(app)
 load_dotenv(dotenv_path=os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/.env')
 
 
+@app.errorhandler(Exception)
+def handle_all_errors(error):
+    console.print_exception()
+    return "Internal server error", 500
+
 load_path = os.path.join('models', 'chatbot')
 model: Model = load_model(load_path)
 with open('misc/chatbot/words.pkl', 'rb') as f:
@@ -49,15 +53,6 @@ with open('misc/intents.json') as f:
 
 contexts = ExpiringDict(max_len=int(os.getenv('MAX_LEN', 500)), max_age_seconds=30 * 60, callback=lambda key, _: UserIterations.rem(key))
 locks = ExpiringDict(max_len=int(os.getenv('MAX_LEN', 500)), max_age_seconds=60 * 60, callback=lambda key, _: notifyTelegram(f'L1ID{key}MSG\nLock on `{key}` has expired.'))
-
-open('misc/comfile', 'w').close()
-comfile_lock_path = 'misc/comfile.lock'
-
-# comfile_lock = filelock.FileLock(comfile_lock_path)
-
-# telegram_process_handle = subprocess.Popen(['python', '-m', 'src.telebot'], shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-# print(telegram_process_handle)
-# queue_pc = Thread(target=sender.run, args=(msg_queue, comfile_lock))
 
 @app.get('/api/v2/chat')
 def chat_v2_get():
@@ -86,7 +81,6 @@ def chat_v2_post():
                 if locks.get(sender_psid):
                     continue
                 
-                print(f"Received message from {sender_psid}")
                 if event.get('message'):
                     message = handle_message(sender_psid, event['message'])
                     response = {}
@@ -144,15 +138,12 @@ def chat_v2_post():
 @app.post('/api/v2t/chat')
 def chat_v2t():
     body = request.get_json()
-    print(body)
     try:
         sentence = body['sentence']
         xsender_id = body['sender_id']
         
         if locks.get(xsender_id):
             return jsonify({'error': 'locked'}), 403
-        
-        print(f"Received message from {xsender_id}")
         
         response = {}
         if contexts.get(xsender_id) is None:
@@ -221,8 +212,6 @@ def chat():
     except KeyError:
         return jsonify({"tag": "error", "response": "No sentence provided."}), 400
     
-    print(request.json)
-    
     if contexts.get(request.json['uid']) is None:
         results, lang = classify(model, sentence, words, classes, threshold=0.75)
     
@@ -244,7 +233,6 @@ def chat():
                         response['message'] = random.choice(intent['responses'])
                         if 'context_set' in intent:
                             contexts[request.json['uid']] = intent['context_set']
-                            print(f"Context set to {contexts[request.json['uid']]}")
                     
                     break
                 
@@ -314,12 +302,16 @@ def unlock():
 
 @app.route('/api/v2/test', methods=['GET'])
 def test():
+    # try:
+    raise Exception("oops error")
+    # except Exception:
+    #     console.print_exception(show_locals=True)
+    
     put_message_client("DEASSIGN?USER=31337&OPERATOR=-25000")
     return jsonify({"success": True}), 200
     
 @app.route('/api/v2/shutdown', methods=['POST'])
 def shutdown_post():
-    print(request.json)
     body = request.json
     
     # should receive a hash of the shutdown token and the poison token
@@ -334,30 +326,14 @@ def shutdown_post():
     
     return jsonify({"message": "Invalid hash."}), 403
     
-@app.get('/api/v2/acknowledge')
-def ack():
-    print("message ACK")
-    return jsonify({"message": "ACK"}), 200
+# @app.get('/api/v2/acknowledge')
+# def ack():
+#     return jsonify({"message": "ACK"}), 200
 
-@app.post('/api/v2/acknowledge')
-def ack_post():
-    body = request.json
-    print(body)
-    return jsonify({"message": "ACK"}), 200
+# @app.post('/api/v2/acknowledge')
+# def ack_post():
+#     body = request.json
+#     return jsonify({"message": "ACK"}), 200
     
 def graceful_shutdown():
     print("Shutting down server...")
-    # telegram_process_handle.kill()
-    # sender.terminate()
-    # queue_pc.join()
-    
-    
-# if __name__ == "__main__":
-#     try:
-#         # queue_pc.start()
-#         app.run(port=int(os.getenv('PORT', 8080)))
-#     except KeyboardInterrupt:
-#         print("Keyboard interrupt detected. Shutting down...")
-#         sender.terminate()
-#         # queue_pc.join()
-#         graceful_shutdown() 

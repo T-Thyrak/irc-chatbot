@@ -104,7 +104,6 @@ Refer to /feedbacks for the list of supported statuses.
     )
 
 def lock(update: Update, context: CallbackContext) -> None:
-    print(lockables)
     if update.effective_chat.id != int(CHAT_ID):
         return
     
@@ -467,16 +466,11 @@ def terminate():
 
 def run():
     while dont_die:
-        # print('Waiting for command...')
-        # requests.get(f"http://localhost:{os.getenv('PORT', 8080)}/api/v2/acknowledge")
         try:
-            # requests.post(f'http://localhost:{os.getenv("PORT", 8080)}/api/v2/acknowledge', json={ "empty": shared_queue.empty() })
             if not shared_queue.empty():
                 message = shared_queue.get()
-                print(message)
                 split_message = message.split("\n")
                 _, sender_id, is_valid, is_shutdown = try_parse_command(split_message[0])
-                print(sender_id)
                 if not is_valid:
                     if is_shutdown:
                         terminate()
@@ -486,54 +480,7 @@ def run():
                     lockables[sender_id] = 1
                     
                 send_message("\n".join(split_message[1:]))
-                # requests.get(f"http://localhost:{os.getenv('PORT', 8080)}/api/v2/acknowledge")
-            
-        #     with flock.acquire(blocking=False):
-        #         with open(f'misc/comfile', 'r+') as f:
-        #             com = f.readline()
-        #             if com == '':
-        #                 continue
-        #             elif com == '\n' or com == '\r\n':
-        #                 f.seek(0)
-        #                 src = f.readlines()
-        #                 skiplines = 1
-        #             else:
-        #                 line_count, sender_id, is_valid, is_shutdown = try_parse_command(com)
-        #                 if not is_valid:
-        #                     if is_shutdown:
-        #                         dont_die = False
-        #                         break
-                            
-        #                     f.seek(0)
-        #                     src = f.readlines()
-        #                     skiplines = 1
-        #                 else:
-        #                     lockables[sender_id] = True
-                                
-        #                     strbuf = ''
-        #                     for _ in range(int(line_count)):
-        #                         strbuf += f.readline()
-                            
-        #                     send_message(strbuf)
-                            
-        #                     print("now writing")
-        #                     f.seek(0)
-        #                     src = f.readlines()
-        #                     skiplines = 1 + int(line_count)
-                        
-        #         with open(f'misc/comfile_new', 'w+') as f:
-        #             f.writelines(src[skiplines:])
-                
-        #         shutil.move('misc/comfile_new', 'misc/comfile')
-        # except filelock.Timeout:
-        #     sleep(0.1)
-        #     continue
         except KeyboardInterrupt:
             handle_shutdown()
             
     handle_shutdown()
-    
-# handle_shutdown()
-            
-# shutdown
-# print('Bot is shutting down...')

@@ -3,7 +3,6 @@ import khmernltk
 import pandas as pd
 import numpy as np
 
-from time import time
 from polyglot.detect import Detector
 
 from nltk.stem.lancaster import LancasterStemmer

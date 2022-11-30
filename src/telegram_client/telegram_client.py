@@ -115,7 +115,6 @@ def chat(update: Update, context: CallbackContext) -> None:
         return
     
     r = requests.post(f"http://localhost:{os.getenv('PORT', 8080)}/api/v2t/chat", json={"sentence": update.message.text, 'first_name': update.effective_user.first_name, 'last_name': update.effective_user.last_name, 'sender_id': encode(update.effective_user.id)})
-    print(r.json())
     if r.json().get('error') == 'locked':
         return
 
@@ -182,12 +181,10 @@ def main() -> None:
                     break
                 
                 is_valid, command, user_id, operator_id = parse_message(message)
-                print(is_valid, command, user_id, operator_id)
                 if not is_valid:
                     continue
                 
                 if command == "ASSIGN":
-                    print(f"Assigning {user_id} to {operator_id}")
                     assign_op_to_user(user_id, operator_id)
                 elif command == "UNASSIGN":
                     unassign_op_to_user(user_id)
@@ -212,7 +209,6 @@ def parse_message(message: str) -> tuple[bool, str, str, str]:
     user_id = is_valid.group(2)
     operator = is_valid.group(3)
     
-    print(command, user_id, operator)
     
     return True, command, user_id, operator
 

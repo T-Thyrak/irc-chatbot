@@ -3,6 +3,9 @@ from typing import Any
 import mysql.connector
 from dotenv import load_dotenv
 
+from rich.console import Console
+console = Console()
+
 load_dotenv()
 
 def create_connection() -> mysql.connector.MySQLConnection:
@@ -16,7 +19,7 @@ def create_connection() -> mysql.connector.MySQLConnection:
         )
     except mysql.connector.errors.DatabaseError:
         db_conn = None
-        print("\033[91m[ERROR]\033[0m Could not connect to database.")
+        console.print_exception(show_locals=True)
     
     return db_conn
 
@@ -42,16 +45,9 @@ def execute_query(query: str, db_conn: mysql.connector.MySQLConnection, values: 
         values (tuple[str | int | float] | list[tuple[str | int | float]] | None, optional): The values to pass as arguments. Defaults to None.
     """
     cursor = db_conn.cursor()
-    print(f"made cursor: {cursor}")
     cursor.execute(query, values)
-    if values is not None:
-        print(f"executed query: {query % values}")
-    else:
-        print(f"executed query: {query}")
     rt_result = cursor.fetchall()
-    print(f"got result: {rt_result}")
     cursor.close()
-    print(f"closed cursor: {cursor}")
     return rt_result
     
 def destroy_connection(db_conn: mysql.connector.MySQLConnection) -> None:

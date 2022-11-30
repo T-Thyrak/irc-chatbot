@@ -9,7 +9,6 @@ def get_feedbacks(page: int, type: str, status: str, row: int, sender_psid: str,
     if db_conn is None:
         return []
     
-    print(f'feedback type: {type}')
     if row != 0:
         query = "SELECT * FROM `feedbacks` WHERE `id` = %s"
         result = execute_query(query, db_conn, (row,))
