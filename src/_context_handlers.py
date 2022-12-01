@@ -6,11 +6,12 @@ import os
 import requests
 import logging
 import json
+import expiringdict
 
 from keras.models import load_model, Model
 from src.classify import classify
 from src.tasks import notifyTelegram
-from src.translate.tr import __
+from src.translate import __
 
 with open('misc/yesno/words.pkl', 'rb') as f:
     words = pickle.load(f)
@@ -25,8 +26,27 @@ with open('misc/survey_data/rules.json', 'r') as f:
     
 scores = {}
 
+SUPPORTED_LANG = (
+    'en',
+    'km'
+)
+
+last_known_user_lang = expiringdict.ExpiringDict(max_len=int(os.getenv("MAX_LEN", 500)), max_age_seconds=60*5)
+
+def update_lang(sender_psid: str, lang: str):
+    if lang == 'un':
+        return last_known_user_lang[sender_psid]
+    
+    if lang not in SUPPORTED_LANG:
+        return last_known_user_lang[sender_psid]
+
+    last_known_user_lang[sender_psid] = lang
+    return lang
+
 def handle_course_recommendation(sender_psid: str, sentence: str, access_token: str | None=None, telegram: bool=False, telegram_data: dict | None=None, lang: str='en') -> tuple[str, bool]:
     # some codes
+    
+    lang = update_lang(sender_psid, lang)
     
     def add_score(input_score: dict, option: int, section: str):
         input_score['cs'] = input_score['cs'] + rules['data_cs'][section][str(option)]
@@ -151,6 +171,8 @@ def handle_course_recommendation(sender_psid: str, sentence: str, access_token: 
     return __('questions.score_calc', lang).format(fullname=fullname, cs_score=score['cs'], ec_score=score['ec'], tn_score=score['tn']), True
 
 def handle_request_human(sender_psid: str, sentence: str, access_token: str | None=None, telegram: bool=False, telegram_data: dict | None=None, lang: str='en') -> tuple[str, bool]:
+    lang = update_lang(sender_psid, lang)
+    
     if UserIterations.get(sender_psid) is None:
         UserIterations.inc(sender_psid)
         
@@ -172,12 +194,12 @@ def handle_request_human(sender_psid: str, sentence: str, access_token: str | No
     return "", True
 
 def handle_send_feedback(sender_psid: str, sentence: str, access_token: str | None=None, telegram: bool=False, telegram_data: dict | None=None, lang: str='en') -> tuple[str, bool]:
+    lang = update_lang(sender_psid, lang)
+
     if not hasattr(handle_send_feedback, 'feedback_type'):
         handle_send_feedback.feedback_type = None
         
     if UserIterations.get(sender_psid) is None:
-        logging.info("Should be hit, 1st time")
-        
         UserIterations.inc(sender_psid)
         
         result, class_lang = classify(yesno_model, sentence=sentence, words=words, classes=classes, threshold=0.5)
@@ -187,21 +209,19 @@ def handle_send_feedback(sender_psid: str, sentence: str, access_token: str | No
         return __('feedback.type', lang), False
 
     if UserIterations.get(sender_psid) == 0:
-        logging.info("Should be hit, 2nd time")
         UserIterations.inc(sender_psid)
         
         if sentence == '1':
             handle_send_feedback.feedback_type = 'Bug'
-            return "Alright, please describe the bug you found.", False
+            return __("feedback.bug", lang), False
         elif sentence == '2':
             handle_send_feedback.feedback_type = 'Improvement'
-            return "Alright, please describe the improvement you want to suggest.", False
+            return __("feedback.improvement", lang), False
         else:
             UserIterations.rem(sender_psid)
-            return "I'm sorry, that is not a valid type of feedback. Please retype it again.", False
+            return __("feedback.invalid_type", lang), False
     
     if UserIterations.get(sender_psid) == 1:
-        logging.info("Should be hit, 3rd time")
         UserIterations.inc(sender_psid)
         
         if not telegram:
@@ -215,19 +235,19 @@ def handle_send_feedback(sender_psid: str, sentence: str, access_token: str | No
         
         db_conn = create_connection()
         if db_conn is None:
-            return "I'm sorry, I am unable to connect to the database. Please try again later.", True
+            return __("feedback.database_failure", lang), True
         
         start_commit(db_conn)
         execute_query(query=sql, values=val, db_conn=db_conn)
         end_commit(db_conn=db_conn)
         destroy_connection(db_conn)
     
-        return "Thank you so much for your feedback! :)", True
+        return __("feedback.thanks", lang), True
     
-    if UserIterations.get(sender_psid) == 2:
-        logging.info("Should be hit, 4th time")
-        UserIterations.rem(sender_psid)
-        return "Thank you so much for your feedback! :)", True
+    # if UserIterations.get(sender_psid) == 2:
+    #     logging.info("Should be hit, 4th time")
+    #     UserIterations.rem(sender_psid)
+    #     return "Thank you so much for your feedback! :)", True
     
     logging.info("Should be unreachable")
     return "", True

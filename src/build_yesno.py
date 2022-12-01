@@ -1,5 +1,11 @@
+from rich.traceback import install
+install(show_locals=True)
+
 import nltk
 import numpy as np
+import khmernltk
+
+from polyglot.detect import Detector
 
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
@@ -8,7 +14,6 @@ from csv import reader
 import pickle
 import random
 import os
-
 
 
 stemmer = nltk.LancasterStemmer()
@@ -23,7 +28,7 @@ def main():
         
         data = np.array(list(csv_reader))
         
-    answers = data[:, 0]
+    answers = list(map(lambda x: x.strip(), data[:, 0]))
     sentences = data[:, 1]
     
     words = []
@@ -32,7 +37,16 @@ def main():
     ignore_words = ['?']
     
     for i, sentence in enumerate(sentences):
-        word = nltk.word_tokenize(sentence)
+        try:
+            lang = Detector(sentence).language.code
+        except Exception:
+            lang = 'en'
+        
+        if lang == 'km':
+            word = khmernltk.word_tokenize(sentence)
+        else:
+            word = nltk.word_tokenize(sentence)
+        
         words.extend(word)
         documents.append((word, answers[i]))
         if answers[i] not in classes:
