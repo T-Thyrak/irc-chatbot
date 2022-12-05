@@ -1,8 +1,4 @@
 {
-    "hello": "world",
-    "nested": {
-        "foo": "bar"
-    },
     "choice": {
         "respect": "I see. I will respect your choice."
     },
