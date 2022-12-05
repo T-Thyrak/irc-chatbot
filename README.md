@@ -104,7 +104,7 @@ the server at `/api/shutdown` with the following information:
 
 This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
 
-If you can't read legalese, you can read it in [plain English here.](https://tldrlegal.com/license/apache-license-2.0-(apache-2.0))
+You can also read it in [plain English here.](https://tldrlegal.com/license/apache-license-2.0-(apache-2.0))
 
 ## Other Notes
 
