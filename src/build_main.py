@@ -1,3 +1,6 @@
+from rich.traceback import install
+install(show_locals=True)
+
 import nltk
 import numpy as np
 import khmernltk

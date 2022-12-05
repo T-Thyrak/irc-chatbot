@@ -32,6 +32,11 @@
         "confirm": "Alright, I will connect you to a human agent. You can still talk to me in the meanwhile. :)"
     },
     "feedback": {
-        "type": "Alright, what type of feedback do you want to send? (Please use the number)\n\n1. Bug Report\n2. Improvement"
+        "type": "Alright, what type of feedback do you want to send? (Please use the number)\n\n1. Bug Report\n2. Improvement",
+        "bug": "Alright, please describe the bug that you found.",
+        "improvement": "Alright, please describe your idea for improvement.",
+        "invalid_type": "I'm sorry, but that is not a valid number for the type of feedbacks. Please choose again.",
+        "database_failure": "I'm sorry, but I wasn't able to connect to the database.",
+        "thanks": "Thank you so much for your feedback! :)"
     }
 }
