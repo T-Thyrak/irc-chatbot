@@ -124,7 +124,7 @@
             ],
             "responses": {
                 "en": [
-                    "I can provide you with the basic informations about the school, and provide you a recommendation for a course if you don't know what to apply for.\nI can understand English and Khmer.\n\nAs for now, I support the following intents:\n- Greetings and Thanks\n- Options\n- Course Recommendation\n- Basic Informations\n- Expanded Informations\n- Contact Information\n- FAQ\n- Feedback\n- Request human"
+                    "I can provide you with the basic informations about the school, and provide you a recommendation for a course if you don't know what to apply for.\nI can understand English and Khmer.\n\nAs for now, I support the following intents:\n- Greetings and Thanks\n- Options\n- Course Recommendation\n- Basic Informations\n- Expanded Informations\n- Contact Information\n- Feedback\n- Request human"
                 ],
                 "km": [
                     "ខ្ញុំអាចផ្ដល់ព័ត៌មានផ្សេងៗអំពីវិទ្យាស្ថានបាន ហើយខ្ញុំក៏អាចជួយអ្នកជ្រើសរើសនូវជំនាញដែលសមស្របចំពោះអ្នក បើសិនជាអ្នកមានការពិបាកក្នុងការសម្រេចចិត្តថា តើគួរតែជ្រើសរើសយកជំនាញណាមួយ។\nខ្ញុំអាចស្គាល់ភាសាអង់គ្លេសនិងភាសាខ្មែរ។\n\nបច្ចុប្បន្ននេះ ខ្ញុំអាចជួយអ្នកបានដោយផ្តល់ព័ត៌មានផ្សេងៗដូចជា៖\n- សួស្តីនិងអរគុណ\n- ជម្រើសដែលអាចធ្វើបាន\n- រើសជំនាញ\n- ព័ត៌មានមូលដ្ឋាន\n- ព័ត៌មានលម្អិត\n- ព័ត៌មានទំនាក់ទំនង\n- សំណួរដែលសួរជាច្រើន\n- ផ្ដល់មតិយោបល់\n- ស្នើសុំនិយាយជាមួយមនុស្សផ្ទាល់"
@@ -267,6 +267,11 @@
                 "real human",
                 "person",
                 "agent",
+                "staff",
+                "I want to talk to staff",
+                "can i talk to staff",
+                "I request human staff",
+                "I request human agent",
                 "ខ្ញុំចង់សួរមកមនុស្ស",
                 "ខ្ញុំចង់សួរមកមនុស្សមួយ",
                 "ខ្ញុំចង់សួរមកមនុស្សពិត",

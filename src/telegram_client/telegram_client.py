@@ -31,8 +31,32 @@ prompts_en = [
     ]),
     PromptGroup('Basic Info', 'basic_info_en', [
         "What is CADT?",
-        "What is the purpose of CADT?",
-        "What is the purpose of this chatbot?",
+        "What is the CADT?",
+        "Who are you?",
+    ]),
+    PromptGroup('Expanded Info', 'expanded_info_en', [
+        "What is the mission of CADT?",
+        "What is the vision of CADT?",
+        "Can you tell me more about the IDT?",
+    ]),
+    PromptGroup('Contact Info', 'contact_info_en', [
+        "How can I contact you?",
+        "How can I reach you?",
+        "How can I contact the school?",
+    ]),
+    PromptGroup('Course Recommendation', 'course_recommendation_en', [
+        "What courses should I take?",
+        "I don't know what to apply for",
+        "Can you recommend me a course?",
+    ]),
+    PromptGroup('Request Human', 'request_human_en', [
+        "I request a human staff",
+        "I want to talk to a real person",
+    ]),
+    PromptGroup('Send Feedback', 'send_feedback_en', [
+        "I want to send feedback",
+        "I want to give feedback",
+        "I want to improve the chatbot",
     ]),
 ]
 
@@ -46,6 +70,28 @@ prompts_km = [
         "តើគោលបំណងនៃ CADT គឺជាអ្វី?",
         "តើគោលបំណងនៃកម្មវិធីនេះគឺជាអ្វី?",
     ]),
+    PromptGroup('ព័ត៌មានបន្ថែម', 'expanded_info_km', [
+        "តើគោលបំណងនៃ CADT គឺជាអ្វី?",
+        "តើគោលបំណងនៃកម្មវិធីនេះគឺជាអ្វី?",
+        "ប្រាប់ខ្ញុំអំពីវិទ្យាស្ថានបច្ចេកវិទ្យាឌីជីថល",
+    ]),
+    PromptGroup('ទំនាក់ទំនង', 'contact_info_km', [
+        "តើខ្ញុំអាចទាក់ទងអ្នកបានតាមរបៀបណា?",
+        "ខ្ញុំចង់ទាក់ទងទៅសាលា",
+    ]),
+    PromptGroup('ផ្ដល់អនុសាសន៍ (recommendation)', 'course_recommendation_km', [
+        "ខ្ញុំអត់ដឹងថាគួរជ្រើសរើសជំនាញណាទេ",
+        "ជ្រើសរើសជំនាញមួយ",
+    ]),
+    PromptGroup('និយាយជាមួយបុគ្គលិក', 'request_human_kh', [
+        "និយាយជាមួយបុគ្គលិក",
+        "ខ្ញុំចង់និយាយជាមួយបុគ្គលិកម្នាក់",
+    ]),
+    PromptGroup('ផ្ដល់យោបល់', 'feedback_km', [
+        "ខ្ញុំចង់ផ្ដល់យោបល់",
+        "ផ្ដល់យោបល់ទៅកាន់សាលា",
+        "ខ្ញុំចង់ផ្ដល់យោបល់",
+    ])
 ]
 
 load_dotenv()
