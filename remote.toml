@@ -2,3 +2,4 @@
 run = ['python', '-m', 'src.main']
 train_main = ['python', '-m', 'src.build_main']
 train_yesno = ['python', '-m', 'src.build_yesno']
+test = ['python', '-m', 'validation.test_proper_env']
